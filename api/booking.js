@@ -12,14 +12,30 @@ const ResendEmailService = require('./resend-email');
  * @param {Object} res - Response object
  */
 module.exports = async (req, res) => {
-    // CORS headers for subdomain access
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // CORS headers - Allow all blosm.dev subdomains
+    const origin = req.headers.origin;
+    const allowedOrigins = [
+        'https://blosm.dev',
+        'https://www.blosm.dev'
+    ];
+
+    // Allow all *.blosm.dev subdomains
+    if (origin && (allowedOrigins.includes(origin) || origin.endsWith('.blosm.dev'))) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    } else if (!origin) {
+        // Same-origin requests
+        res.setHeader('Access-Control-Allow-Origin', '*');
+    } else {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+    }
+
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    res.setHeader('Access-Control-Max-Age', '86400'); // 24 hours
 
     // Handle preflight
     if (req.method === 'OPTIONS') {
-        return res.status(200).end();
+        return res.status(204).end();
     }
 
     // Only accept POST
