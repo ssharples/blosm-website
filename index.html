@@ -858,14 +858,8 @@
 
                         index++;
                         setTimeout(type, typingSpeed);
-                    } else {
-                        // Animation complete - restart after delay
-                        setTimeout(() => {
-                            el.innerHTML = '';
-                            index = 0;
-                            type();
-                        }, 3000); // Wait 3 seconds before restarting
                     }
+                    // Animation complete - no restart
                 }
 
                 // Start typing animation after a short delay
