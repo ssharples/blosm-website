@@ -1,0 +1,24 @@
+{
+  "name": "blosm-website",
+  "version": "1.0.0",
+  "description": "Blosm company website with booking API",
+  "scripts": {
+    "dev": "npx http-server . -p 3000 -o",
+    "build": "echo 'Static site - no build needed'",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "blosm",
+    "website",
+    "automation"
+  ],
+  "author": "Blosm <scott@blosm.dev>",
+  "license": "MIT",
+  "dependencies": {
+    "googleapis": "^128.0.0",
+    "resend": "^3.0.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
