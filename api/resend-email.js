@@ -11,6 +11,7 @@ class ResendEmailService {
     constructor() {
         this.resend = new Resend(process.env.RESEND_API_KEY);
         this.fromEmail = process.env.RESEND_FROM_EMAIL || 'hello@updates.blosm.dev';
+        this.replyToEmail = process.env.REPLY_TO_EMAIL || 'scott@blosm.dev';
     }
 
     /**
@@ -39,6 +40,7 @@ class ResendEmailService {
                 from: `Blosm <${this.fromEmail}>`,
                 to: [email],
                 cc: ['scott@blosm.dev'],
+                replyTo: this.replyToEmail,
                 subject: `Your Website Consultation is Confirmed - ${company}`,
                 html: htmlContent,
                 text: textContent,
@@ -199,6 +201,7 @@ Demo URL: https://${company.toLowerCase().replace(/\s+/g, '-')}.blosm.dev
             const response = await this.resend.emails.send({
                 from: `Blosm <${this.fromEmail}>`,
                 to: [email],
+                replyTo: this.replyToEmail,
                 subject: `Tomorrow: Website Consultation for ${company}`,
                 html: htmlContent,
                 tags: [

@@ -7,6 +7,20 @@
       "maxDuration": 10
     }
   },
+  "crons": [
+    {
+      "path": "/api/cron/email-1-monday",
+      "schedule": "50 7 * * 1"
+    },
+    {
+      "path": "/api/cron/email-2-thursday",
+      "schedule": "50 7 * * 4"
+    },
+    {
+      "path": "/api/cron/email-3-monday",
+      "schedule": "50 7 * * 1"
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
