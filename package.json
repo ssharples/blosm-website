@@ -15,8 +15,8 @@
   "author": "Blosm <scott@blosm.dev>",
   "license": "MIT",
   "dependencies": {
-    "@vercel/kv": "^1.0.1",
     "googleapis": "^128.0.0",
+    "redis": "^4.6.13",
     "resend": "^3.0.0"
   },
   "devDependencies": {

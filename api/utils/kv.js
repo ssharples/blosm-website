@@ -1,9 +1,67 @@
 /**
- * Vercel KV Helper Functions for Email Campaign Management
+ * Redis KV Helper Functions for Email Campaign Management
  * Handles lead storage, stage tracking, and campaign state management
  */
 
-import { kv } from '@vercel/kv';
+import { createClient } from 'redis';
+
+// Create and cache Redis client
+let redisClient = null;
+
+async function getRedisClient() {
+  if (redisClient && redisClient.isOpen) {
+    return redisClient;
+  }
+
+  if (!process.env.REDIS_URL) {
+    throw new Error('REDIS_URL environment variable not set');
+  }
+
+  redisClient = createClient({
+    url: process.env.REDIS_URL
+  });
+
+  redisClient.on('error', (err) => console.error('Redis Client Error:', err));
+
+  await redisClient.connect();
+  console.log('Redis client connected successfully');
+
+  return redisClient;
+}
+
+// KV wrapper functions
+const kv = {
+  async set(key, value) {
+    const client = await getRedisClient();
+    return await client.set(key, JSON.stringify(value));
+  },
+
+  async get(key) {
+    const client = await getRedisClient();
+    const value = await client.get(key);
+    return value ? JSON.parse(value) : null;
+  },
+
+  async sadd(key, member) {
+    const client = await getRedisClient();
+    return await client.sAdd(key, member);
+  },
+
+  async smembers(key) {
+    const client = await getRedisClient();
+    return await client.sMembers(key);
+  },
+
+  async srem(key, member) {
+    const client = await getRedisClient();
+    return await client.sRem(key, member);
+  },
+
+  async scard(key) {
+    const client = await getRedisClient();
+    return await client.sCard(key);
+  }
+};
 
 /**
  * Store lead in KV with campaign stage
