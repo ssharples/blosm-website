@@ -88,6 +88,7 @@ export async function sendCampaignEmail(lead, emailNumber) {
 /**
  * Format email body for HTML
  * Converts newlines to <br> tags and preserves formatting
+ * Preserves HTML tags for links, buttons, etc.
  * @param {string} body - Raw email body text
  * @returns {string} HTML formatted body
  */
@@ -96,7 +97,14 @@ function formatEmailBody(body) {
     .split('\n')
     .map(line => line.trim())
     .filter(line => line.length > 0)
-    .map(line => `<p style="margin: 0 0 16px 0;">${escapeHtml(line)}</p>`)
+    .map(line => {
+      // If line contains HTML tags, preserve them (don't escape)
+      if (line.includes('<') && line.includes('>')) {
+        return `<p style="margin: 0 0 16px 0;">${line}</p>`;
+      }
+      // Otherwise, escape HTML for safety
+      return `<p style="margin: 0 0 16px 0;">${escapeHtml(line)}</p>`;
+    })
     .join('\n');
 }
 
