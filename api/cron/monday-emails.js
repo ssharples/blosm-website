@@ -4,7 +4,7 @@
  * Runs at 7:50am GMT every Monday
  */
 
-import { kv } from '@vercel/kv';
+import { kv } from '../utils/kv.js';
 import { sendCampaignEmail } from '../utils/resend-campaign.js';
 
 export const config = {

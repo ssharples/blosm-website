@@ -30,7 +30,7 @@ async function getRedisClient() {
 }
 
 // KV wrapper functions
-const kv = {
+export const kv = {
   async set(key, value) {
     const client = await getRedisClient();
     return await client.set(key, JSON.stringify(value));
