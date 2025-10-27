@@ -4,6 +4,7 @@
  * Stores lead data in Vercel KV for automated email sequence
  */
 
+import { kv } from '@vercel/kv';
 import { storeLead } from '../utils/kv.js';
 
 export default async function handler(req, res) {
