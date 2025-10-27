@@ -51,7 +51,8 @@ export async function sendCampaignEmail(lead, emailNumber) {
     .replace(/\{\{\{email_body\}\}\}/g, formatEmailBody(body))
     .replace(/\{\{lead_email\}\}/g, encodeURIComponent(lead.email))
     .replace(/\{\{contact_name\}\}/g, escapeHtml(lead.contactName || 'there'))
-    .replace(/\{\{company_name\}\}/g, escapeHtml(lead.companyName || 'your company'));
+    .replace(/\{\{company_name\}\}/g, escapeHtml(lead.companyName || 'your company'))
+    .replace(/\{\{demo_url\}\}/g, lead.demoUrl || `https://blosm.dev/api/demo-request?email=${encodeURIComponent(lead.email)}&business=${encodeURIComponent(lead.companyName || 'your-business')}`);
 
   // Generate plain text version
   const text = generatePlainText(subject, body, lead);
@@ -87,24 +88,19 @@ export async function sendCampaignEmail(lead, emailNumber) {
 
 /**
  * Format email body for HTML
- * Converts newlines to <br> tags and preserves formatting
- * Preserves HTML tags for links, buttons, etc.
+ * Converts newlines to paragraphs and escapes all HTML for safety
  * @param {string} body - Raw email body text
  * @returns {string} HTML formatted body
  */
 function formatEmailBody(body) {
-  return body
+  // Strip any HTML tags from the body for safety
+  const cleanBody = body.replace(/<[^>]*>/g, '');
+
+  return cleanBody
     .split('\n')
     .map(line => line.trim())
     .filter(line => line.length > 0)
-    .map(line => {
-      // If line contains HTML tags, preserve them (don't escape)
-      if (line.includes('<') && line.includes('>')) {
-        return `<p style="margin: 0 0 16px 0;">${line}</p>`;
-      }
-      // Otherwise, escape HTML for safety
-      return `<p style="margin: 0 0 16px 0;">${escapeHtml(line)}</p>`;
-    })
+    .map(line => `<p style="margin: 0 0 16px 0;">${escapeHtml(line)}</p>`)
     .join('\n');
 }
 
@@ -116,8 +112,17 @@ function formatEmailBody(body) {
  * @returns {string} Plain text email
  */
 function generatePlainText(subject, body, lead) {
+  // Strip any HTML from body
+  const cleanBody = body.replace(/<[^>]*>/g, '');
+
+  // Generate demo URL
+  const demoUrl = lead.demoUrl || `https://blosm.dev/api/demo-request?email=${encodeURIComponent(lead.email)}&business=${encodeURIComponent(lead.companyName || 'your-business')}`;
+
   return `
-${body}
+${cleanBody}
+
+► Yes, Show Me The Demo:
+${demoUrl}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
