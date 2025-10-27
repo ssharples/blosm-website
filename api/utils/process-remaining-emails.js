@@ -14,7 +14,8 @@ export default async function handler(req, res) {
 
   // Optional: Add authentication
   const authHeader = req.headers['authorization'];
-  if (authHeader !== `Bearer ${process.env.ADMIN_SECRET || 'your-admin-secret'}`) {
+  const expectedToken = process.env.ADMIN_SECRET || 'a5f6eec9fa6383069d9f4b07c9271fa999346ba5e974fb4734516eb3e211359a';
+  if (authHeader !== `Bearer ${expectedToken}`) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
