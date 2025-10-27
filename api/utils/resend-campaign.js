@@ -152,9 +152,6 @@ ${demoUrl}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-If you'd prefer not to receive these emails, you can unsubscribe here:
-https://blosm.dev/api/unsubscribe?email=${encodeURIComponent(lead.email)}
-
 Scott Sharples
 Blosm Web Development
 Manchester, UK

@@ -15,6 +15,7 @@
   "author": "Blosm <scott@blosm.dev>",
   "license": "MIT",
   "dependencies": {
+    "@notionhq/client": "^5.3.0",
     "googleapis": "^128.0.0",
     "redis": "^4.6.13",
     "resend": "^3.0.0"
