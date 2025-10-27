@@ -43,20 +43,24 @@ export default async function handler(req, res) {
   try {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('Received Notion webhook');
-    console.log('Full request body:', JSON.stringify(req.body, null, 2));
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
-    const { page_id, properties } = req.body;
+    // Handle Notion automation webhook format (nested under 'data')
+    const pageData = req.body.data || req.body;
+    const page_id = pageData.id || req.body.page_id;
+    const properties = pageData.properties || req.body.properties;
 
     if (!page_id || !properties) {
       console.error('Missing page_id or properties in webhook payload');
+      console.error('Full body:', JSON.stringify(req.body, null, 2));
       return res.status(400).json({
         error: 'Invalid webhook payload',
         message: 'Missing page_id or properties',
         received: {
           hasPageId: !!page_id,
           hasProperties: !!properties,
-          bodyKeys: Object.keys(req.body || {})
+          bodyKeys: Object.keys(req.body || {}),
+          dataKeys: Object.keys(req.body.data || {})
         }
       });
     }
@@ -71,16 +75,16 @@ export default async function handler(req, res) {
       demoUrl: properties['Demo URL']?.url || 'https://dentist.blosm.dev/',
 
       // Email 1 (Initial Outreach - Monday)
-      email1Subject: extractText(properties['Email 1 Subject']?.rich_text),
-      email1Body: extractText(properties['Email 1 Body']?.rich_text),
+      email1Subject: extractText(properties['Email Stage 1 Subject']?.rich_text),
+      email1Body: extractText(properties['Email Stage 1 Body']?.rich_text),
 
       // Email 2 (Follow-up - Thursday)
-      email2Subject: extractText(properties['Email 2 Subject']?.rich_text),
-      email2Body: extractText(properties['Email 2 Body']?.rich_text),
+      email2Subject: extractText(properties['Email Stage 2 Subject']?.rich_text),
+      email2Body: extractText(properties['Email Stage 2 Body']?.rich_text),
 
       // Email 3 (Final Follow-up - Next Monday)
-      email3Subject: extractText(properties['Email 3 Subject']?.rich_text),
-      email3Body: extractText(properties['Email 3 Body']?.rich_text),
+      email3Subject: extractText(properties['Email Stage 3 Subject']?.rich_text),
+      email3Body: extractText(properties['Email Stage 3 Body']?.rich_text),
     };
 
     console.log('Extracted lead data:', {
