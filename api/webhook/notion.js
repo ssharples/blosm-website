@@ -66,11 +66,16 @@ export default async function handler(req, res) {
     }
 
     // Check if instant mode is requested (via header or property)
-    const instantMode = req.headers['x-instant-mode'] === 'true' ||
+    const instantHeader = req.headers['x-instant-mode'] || req.headers['X-Instant-Mode'];
+    console.log('Instant mode header received:', instantHeader);
+    console.log('All headers:', JSON.stringify(req.headers, null, 2));
+
+    const instantMode = instantHeader?.toLowerCase() === 'true' ||
                        properties['Instant']?.checkbox === true ||
                        properties['Send Instantly']?.checkbox === true;
 
     console.log('Mode:', instantMode ? 'INSTANT - Email will be sent immediately' : 'QUEUED - Email scheduled for Monday');
+    console.log('Instant mode evaluated to:', instantMode);
 
     // Extract lead data from Notion properties
     const leadData = {
