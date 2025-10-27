@@ -40,19 +40,31 @@ class ResendEmailService {
                 from: `Blosm <${this.fromEmail}>`,
                 to: [email],
                 cc: ['scott@blosm.dev'],
-                replyTo: this.replyToEmail,
+                replyTo: ['scott@blosm.dev'],
                 subject: `Your Website Consultation is Confirmed - ${company}`,
                 html: htmlContent,
                 text: textContent,
                 tags: [
                     { name: 'category', value: 'booking-confirmation' },
-                    { name: 'business', value: company }
+                    { name: 'business', value: (company || 'unknown').replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase() }
                 ]
+            });
+
+            // Check if Resend returned an error
+            if (response.error) {
+                console.error('Resend API returned error:', response.error);
+                throw new Error(`Resend API error: ${response.error.message}`);
+            }
+
+            console.log('✓ Booking confirmation email sent:', {
+                emailId: response.data?.id || response.id,
+                to: email,
+                company: company
             });
 
             return {
                 success: true,
-                emailId: response.id,
+                emailId: response.data?.id || response.id,
                 message: 'Confirmation email sent successfully'
             };
         } catch (error) {
@@ -201,16 +213,22 @@ Demo URL: https://${company.toLowerCase().replace(/\s+/g, '-')}.blosm.dev
             const response = await this.resend.emails.send({
                 from: `Blosm <${this.fromEmail}>`,
                 to: [email],
-                replyTo: this.replyToEmail,
+                replyTo: ['scott@blosm.dev'],
                 subject: `Tomorrow: Website Consultation for ${company}`,
                 html: htmlContent,
                 tags: [
                     { name: 'category', value: 'meeting-reminder' },
-                    { name: 'business', value: company }
+                    { name: 'business', value: (company || 'unknown').replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase() }
                 ]
             });
 
-            return { success: true, emailId: response.id };
+            // Check if Resend returned an error
+            if (response.error) {
+                console.error('Resend API returned error:', response.error);
+                throw new Error(`Resend API error: ${response.error.message}`);
+            }
+
+            return { success: true, emailId: response.data?.id || response.id };
         } catch (error) {
             console.error('Reminder Email Error:', error);
             throw new Error(`Failed to send reminder: ${error.message}`);
