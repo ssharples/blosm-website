@@ -47,9 +47,8 @@ export default async function handler(req, res) {
 
       // Basic Info
       companyName: extractText(properties['Company Name']?.title),
-      contactName: extractText(properties['Contact Name']?.rich_text),
       email: properties['Email']?.email || '',
-      demoUrl: properties['Demo URL']?.url || '',
+      demoUrl: properties['Demo URL']?.url || 'https://dentist.blosm.dev/',
 
       // Email 1 (Initial Outreach - Monday)
       email1Subject: extractText(properties['Email 1 Subject']?.rich_text),
@@ -67,8 +66,7 @@ export default async function handler(req, res) {
     console.log('Extracted lead data:', {
       email: leadData.email,
       company: leadData.companyName,
-      contact: leadData.contactName,
-      demoUrl: leadData.demoUrl || 'Not provided (will auto-generate)',
+      demoUrl: leadData.demoUrl,
       hasEmail1: !!(leadData.email1Subject && leadData.email1Body),
       hasEmail2: !!(leadData.email2Subject && leadData.email2Body),
       hasEmail3: !!(leadData.email3Subject && leadData.email3Body)
@@ -115,7 +113,7 @@ export default async function handler(req, res) {
       data: {
         email: leadData.email,
         company: leadData.companyName,
-        contact: leadData.contactName,
+        demoUrl: leadData.demoUrl,
         stage: 'queued',
         nextEmail: 'Email 1 - Monday 7:50am GMT',
         campaignSequence: {

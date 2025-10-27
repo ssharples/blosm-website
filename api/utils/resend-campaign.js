@@ -52,7 +52,7 @@ export async function sendCampaignEmail(lead, emailNumber) {
     .replace(/\{\{lead_email\}\}/g, encodeURIComponent(lead.email))
     .replace(/\{\{contact_name\}\}/g, escapeHtml(lead.contactName || 'there'))
     .replace(/\{\{company_name\}\}/g, escapeHtml(lead.companyName || 'your company'))
-    .replace(/\{\{demo_url\}\}/g, lead.demoUrl || `https://blosm.dev/api/demo-request?email=${encodeURIComponent(lead.email)}&business=${encodeURIComponent(lead.companyName || 'your-business')}`);
+    .replace(/\{\{demo_url\}\}/g, lead.demoUrl || 'https://dentist.blosm.dev/');
 
   // Generate plain text version
   const text = generatePlainText(subject, body, lead);
@@ -134,7 +134,7 @@ function generatePlainText(subject, body, lead) {
   const cleanBody = body.replace(/<[^>]*>/g, '');
 
   // Generate demo URL
-  const demoUrl = lead.demoUrl || `https://blosm.dev/api/demo-request?email=${encodeURIComponent(lead.email)}&business=${encodeURIComponent(lead.companyName || 'your-business')}`;
+  const demoUrl = lead.demoUrl || 'https://dentist.blosm.dev/';
 
   return `
 ${cleanBody}
