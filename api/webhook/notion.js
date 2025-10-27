@@ -65,6 +65,13 @@ export default async function handler(req, res) {
       });
     }
 
+    // Check if instant mode is requested (via header or property)
+    const instantMode = req.headers['x-instant-mode'] === 'true' ||
+                       properties['Instant']?.checkbox === true ||
+                       properties['Send Instantly']?.checkbox === true;
+
+    console.log('Mode:', instantMode ? 'INSTANT - Email will be sent immediately' : 'QUEUED - Email scheduled for Monday');
+
     // Extract lead data from Notion properties
     const leadData = {
       pageId: page_id,
@@ -130,33 +137,109 @@ export default async function handler(req, res) {
       });
     }
 
-    // Store lead in Vercel KV
-    const stored = await storeLead(leadData);
+    // Handle instant mode - send Email 1 immediately
+    if (instantMode) {
+      console.log('\n📧 INSTANT MODE: Sending Email 1 immediately...');
 
-    if (!stored) {
-      throw new Error('Failed to store lead in KV');
-    }
+      try {
+        // Import the email sending function
+        const { sendCampaignEmail } = await import('../utils/resend-campaign.js');
 
-    console.log(`✓ Lead queued successfully: ${leadData.email} (${leadData.companyName})`);
-    console.log(`  → Email 1 will be sent next Monday at 7:50am GMT`);
+        // Send Email 1 immediately
+        const emailResult = await sendCampaignEmail(leadData, 1);
+        console.log('✓ Email 1 sent successfully!');
+        console.log('  Resend ID:', emailResult?.data?.id || emailResult?.id || 'unknown');
 
-    // Success response
-    res.status(200).json({
-      success: true,
-      message: 'Lead queued for automated campaign',
-      data: {
-        email: leadData.email,
-        company: leadData.companyName,
-        demoUrl: leadData.demoUrl,
-        stage: 'queued',
-        nextEmail: 'Email 1 - Monday 7:50am GMT',
-        campaignSequence: {
-          email1: leadData.email1Subject ? 'Ready' : 'Missing',
-          email2: leadData.email2Subject ? 'Ready' : 'Not configured',
-          email3: leadData.email3Subject ? 'Ready' : 'Not configured'
-        }
+        // Update lead status and store in KV for Email 2
+        leadData.status = 'email1_sent';
+        leadData.email1SentAt = new Date().toISOString();
+        leadData.queuedAt = new Date().toISOString();
+        leadData.lastUpdated = new Date().toISOString();
+
+        // Store/update lead in KV
+        await kv.set(`lead:${leadData.email}`, leadData);
+
+        // Add to email1_sent set (for Thursday cron to pick up)
+        await kv.sadd('leads:email1_sent', leadData.email);
+
+        // Remove from queued if present
+        await kv.srem('leads:queued', leadData.email);
+
+        console.log('✅ Lead processed in INSTANT mode');
+        console.log('  → Email 1: SENT NOW');
+        console.log('  → Email 2: Thursday 7:50am GMT');
+        console.log('  → Email 3: Next Monday 7:50am GMT');
+
+        // Success response for instant mode
+        res.status(200).json({
+          success: true,
+          message: 'Email 1 sent immediately, Email 2 scheduled for Thursday',
+          mode: 'instant',
+          data: {
+            email: leadData.email,
+            company: leadData.companyName,
+            demoUrl: leadData.demoUrl,
+            stage: 'email1_sent',
+            email1SentAt: leadData.email1SentAt,
+            nextEmail: 'Email 2 - Thursday 7:50am GMT',
+            campaignSequence: {
+              email1: 'Sent ✓',
+              email2: leadData.email2Subject ? 'Scheduled for Thursday' : 'Not configured',
+              email3: leadData.email3Subject ? 'Scheduled for Monday' : 'Not configured'
+            }
+          }
+        });
+
+      } catch (emailError) {
+        console.error('❌ Failed to send instant email:', emailError.message);
+
+        // Still save the lead but in queued state for retry
+        leadData.status = 'queued';
+        leadData.error = `Instant send failed: ${emailError.message}`;
+
+        const stored = await storeLead(leadData);
+
+        res.status(500).json({
+          error: 'Failed to send instant email, lead queued for Monday',
+          message: emailError.message,
+          data: {
+            email: leadData.email,
+            company: leadData.companyName,
+            fallback: 'Lead queued for Monday cron job'
+          }
+        });
       }
-    });
+
+    } else {
+      // QUEUED MODE - Original behavior
+      const stored = await storeLead(leadData);
+
+      if (!stored) {
+        throw new Error('Failed to store lead in KV');
+      }
+
+      console.log(`✓ Lead queued successfully: ${leadData.email} (${leadData.companyName})`);
+      console.log(`  → Email 1 will be sent next Monday at 7:50am GMT`);
+
+      // Success response for queued mode
+      res.status(200).json({
+        success: true,
+        message: 'Lead queued for automated campaign',
+        mode: 'queued',
+        data: {
+          email: leadData.email,
+          company: leadData.companyName,
+          demoUrl: leadData.demoUrl,
+          stage: 'queued',
+          nextEmail: 'Email 1 - Monday 7:50am GMT',
+          campaignSequence: {
+            email1: leadData.email1Subject ? 'Ready' : 'Missing',
+            email2: leadData.email2Subject ? 'Ready' : 'Not configured',
+            email3: leadData.email3Subject ? 'Ready' : 'Not configured'
+          }
+        }
+      });
+    }
 
   } catch (error) {
     console.error('Notion webhook error:', error);
