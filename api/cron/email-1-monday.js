@@ -64,13 +64,15 @@ export default async function handler(req, res) {
         }
 
         // Send Email 1
-        await sendCampaignEmail(lead, 1);
+        console.log(`  → Calling sendCampaignEmail...`);
+        const sendResult = await sendCampaignEmail(lead, 1);
+        console.log(`  → sendCampaignEmail returned:`, JSON.stringify(sendResult, null, 2));
 
         // Update stage to email1_sent
         await updateLeadStage(lead.email, 'email1_sent', 'queued');
 
         results.sent++;
-        console.log(`  ✓ Sent: Email 1 delivered`);
+        console.log(`  ✓ Sent: Email 1 delivered (Resend ID: ${sendResult?.data?.id || sendResult?.id || 'unknown'})`);
 
       } catch (error) {
         results.failed++;
