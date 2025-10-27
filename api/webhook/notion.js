@@ -41,14 +41,23 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log('Received Notion webhook:', JSON.stringify(req.body, null, 2));
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('Received Notion webhook');
+    console.log('Full request body:', JSON.stringify(req.body, null, 2));
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
     const { page_id, properties } = req.body;
 
     if (!page_id || !properties) {
+      console.error('Missing page_id or properties in webhook payload');
       return res.status(400).json({
         error: 'Invalid webhook payload',
-        message: 'Missing page_id or properties'
+        message: 'Missing page_id or properties',
+        received: {
+          hasPageId: !!page_id,
+          hasProperties: !!properties,
+          bodyKeys: Object.keys(req.body || {})
+        }
       });
     }
 
@@ -92,18 +101,28 @@ export default async function handler(req, res) {
     if (!leadData.email1Body) missingFields.push('Email 1 Body');
 
     if (missingFields.length > 0) {
+      console.error('Missing required fields:', missingFields);
+      console.error('Lead data received:', leadData);
       return res.status(400).json({
         error: 'Missing required fields',
         missing: missingFields,
-        message: `Please fill in: ${missingFields.join(', ')}`
+        message: `Please fill in: ${missingFields.join(', ')}`,
+        receivedData: {
+          email: leadData.email || 'MISSING',
+          companyName: leadData.companyName || 'MISSING',
+          email1Subject: leadData.email1Subject || 'MISSING',
+          email1Body: leadData.email1Body ? `${leadData.email1Body.substring(0, 50)}...` : 'MISSING'
+        }
       });
     }
 
     // Validate email format
     if (!isValidEmail(leadData.email)) {
+      console.error('Invalid email format:', leadData.email);
       return res.status(400).json({
         error: 'Invalid email format',
-        email: leadData.email
+        email: leadData.email,
+        message: 'Email must be in format: user@domain.com'
       });
     }
 
