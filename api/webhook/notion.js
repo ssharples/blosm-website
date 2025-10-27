@@ -49,6 +49,7 @@ export default async function handler(req, res) {
       companyName: extractText(properties['Company Name']?.title),
       contactName: extractText(properties['Contact Name']?.rich_text),
       email: properties['Email']?.email || '',
+      demoUrl: properties['Demo URL']?.url || '',
 
       // Email 1 (Initial Outreach - Monday)
       email1Subject: extractText(properties['Email 1 Subject']?.rich_text),
@@ -67,6 +68,7 @@ export default async function handler(req, res) {
       email: leadData.email,
       company: leadData.companyName,
       contact: leadData.contactName,
+      demoUrl: leadData.demoUrl || 'Not provided (will auto-generate)',
       hasEmail1: !!(leadData.email1Subject && leadData.email1Body),
       hasEmail2: !!(leadData.email2Subject && leadData.email2Body),
       hasEmail3: !!(leadData.email3Subject && leadData.email3Body)
