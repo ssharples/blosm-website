@@ -57,6 +57,11 @@ export async function sendCampaignEmail(lead, emailNumber) {
   // Generate plain text version
   const text = generatePlainText(subject, body, lead);
 
+  console.log(`Attempting to send email ${emailNumber} to ${lead.email}...`);
+  console.log(`Subject: ${subject}`);
+  console.log(`Body length: ${body.length} chars`);
+  console.log(`HTML length: ${html.length} chars`);
+
   try {
     const response = await resend.emails.send({
       from: `Scott from Blosm <${FROM_EMAIL}>`,
@@ -77,11 +82,18 @@ export async function sendCampaignEmail(lead, emailNumber) {
       ]
     });
 
-    console.log(`✓ Email ${emailNumber} sent to ${lead.email} (${lead.companyName}) - ID: ${response.id}`);
+    console.log(`✓ Email ${emailNumber} sent successfully!`);
+    console.log(`  To: ${lead.email}`);
+    console.log(`  Company: ${lead.companyName}`);
+    console.log(`  Resend ID: ${response.data?.id || response.id}`);
+    console.log(`  Full response:`, JSON.stringify(response, null, 2));
 
     return response;
   } catch (error) {
-    console.error(`✗ Failed to send email ${emailNumber} to ${lead.email}:`, error);
+    console.error(`✗ FAILED to send email ${emailNumber} to ${lead.email}`);
+    console.error(`  Error message:`, error.message);
+    console.error(`  Error stack:`, error.stack);
+    console.error(`  Full error:`, JSON.stringify(error, null, 2));
     throw error;
   }
 }
