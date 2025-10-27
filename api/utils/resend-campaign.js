@@ -64,7 +64,7 @@ export async function sendCampaignEmail(lead, emailNumber) {
 
   try {
     const response = await resend.emails.send({
-      from: `Scott from Blosm <${FROM_EMAIL}>`,
+      from: `Scott Sharples <${FROM_EMAIL}>`,
       to: [lead.email],
       replyTo: REPLY_TO_EMAIL,
       subject: subject,
