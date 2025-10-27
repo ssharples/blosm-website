@@ -107,6 +107,7 @@ export async function sendCampaignEmail(lead, emailNumber) {
 /**
  * Format email body for HTML
  * Converts newlines to paragraphs and escapes all HTML for safety
+ * Double newlines (\n\n) create paragraph breaks
  * @param {string} body - Raw email body text
  * @returns {string} HTML formatted body
  */
@@ -114,11 +115,18 @@ function formatEmailBody(body) {
   // Strip any HTML tags from the body for safety
   const cleanBody = body.replace(/<[^>]*>/g, '');
 
-  return cleanBody
-    .split('\n')
-    .map(line => line.trim())
-    .filter(line => line.length > 0)
-    .map(line => `<p style="margin: 0 0 16px 0;">${escapeHtml(line)}</p>`)
+  // Split by double newlines to get paragraphs
+  const paragraphs = cleanBody.split(/\n\n+/);
+
+  return paragraphs
+    .map(para => para.trim())
+    .filter(para => para.length > 0)
+    .map(para => {
+      // Escape HTML first, then replace newlines with <br>
+      const escapedPara = escapeHtml(para);
+      const formattedPara = escapedPara.replace(/\n/g, '<br>');
+      return `<p style="margin: 0 0 16px 0;">${formattedPara}</p>`;
+    })
     .join('\n');
 }
 
