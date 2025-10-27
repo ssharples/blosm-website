@@ -8,20 +8,31 @@ import { storeLead } from '../utils/kv.js';
 
 export default async function handler(req, res) {
   // Verify webhook authentication
-  const authHeader = req.headers['authorization'];
-  const expectedAuth = `Bearer ${process.env.WEBHOOK_SECRET}`;
+  const authHeader = req.headers['authorization'] || req.headers['Authorization'];
+  const expectedSecret = process.env.WEBHOOK_SECRET;
 
-  if (!process.env.WEBHOOK_SECRET) {
+  if (!expectedSecret) {
     console.error('WEBHOOK_SECRET environment variable not set');
     return res.status(500).json({ error: 'Server configuration error' });
   }
 
-  if (authHeader !== expectedAuth) {
+  // Extract token from "Bearer TOKEN" format, handling whitespace
+  const token = authHeader?.replace(/^Bearer\s+/i, '').trim();
+
+  if (token !== expectedSecret) {
     console.warn('Unauthorized webhook attempt', {
-      receivedAuth: authHeader?.substring(0, 20),
-      expectedPrefix: expectedAuth.substring(0, 20)
+      receivedHeader: authHeader?.substring(0, 30),
+      receivedToken: token?.substring(0, 20),
+      expectedToken: expectedSecret.substring(0, 20),
+      headers: JSON.stringify(req.headers)
     });
-    return res.status(401).json({ error: 'Unauthorized' });
+    return res.status(401).json({
+      error: 'Unauthorized',
+      debug: {
+        receivedTokenPrefix: token?.substring(0, 10),
+        expectedTokenPrefix: expectedSecret.substring(0, 10)
+      }
+    });
   }
 
   // Only accept POST requests
