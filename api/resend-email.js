@@ -40,7 +40,7 @@ class ResendEmailService {
                 from: `Blosm <${this.fromEmail}>`,
                 to: [email],
                 cc: ['scott@blosm.dev'],
-                replyTo: ['scott@blosm.dev'],
+                reply_to: 'scott@blosm.dev',
                 subject: `Your Website Consultation is Confirmed - ${company}`,
                 html: htmlContent,
                 text: textContent,
@@ -213,7 +213,7 @@ Demo URL: https://${company.toLowerCase().replace(/\s+/g, '-')}.blosm.dev
             const response = await this.resend.emails.send({
                 from: `Blosm <${this.fromEmail}>`,
                 to: [email],
-                replyTo: ['scott@blosm.dev'],
+                reply_to: 'scott@blosm.dev',
                 subject: `Tomorrow: Website Consultation for ${company}`,
                 html: htmlContent,
                 tags: [
