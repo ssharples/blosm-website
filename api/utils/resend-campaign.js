@@ -78,9 +78,15 @@ export async function sendCampaignEmail(lead, emailNumber) {
       tags: [
         { name: 'campaign', value: 'cold-outreach' },
         { name: 'email_number', value: `email-${emailNumber}` },
-        { name: 'company', value: lead.companyName || 'unknown' }
+        { name: 'company', value: (lead.companyName || 'unknown').replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase() }
       ]
     });
+
+    // Check if Resend returned an error
+    if (response.error) {
+      console.error(`✗ Resend API returned error:`, response.error);
+      throw new Error(`Resend API error: ${response.error.message}`);
+    }
 
     console.log(`✓ Email ${emailNumber} sent successfully!`);
     console.log(`  To: ${lead.email}`);
