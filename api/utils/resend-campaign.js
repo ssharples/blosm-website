@@ -159,6 +159,7 @@ Scott Sharples
 Blosm Web Development
 Manchester, UK
 scott@blosm.dev
++44 7438 187309
 https://blosm.dev
   `.trim();
 }

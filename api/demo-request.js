@@ -69,7 +69,7 @@ module.exports = async (req, res) => {
         const notificationResult = await resend.emails.send({
             from: `Blosm Demo Requests <${fromEmail}>`,
             to: [notificationEmail],
-            replyTo: replyToEmail,
+            reply_to: replyToEmail,
             subject: `🚀 New Demo Request: ${demoData.business_name}`,
             html: generateNotificationEmail(demoData),
             tags: [
@@ -82,7 +82,7 @@ module.exports = async (req, res) => {
         const confirmationResult = await resend.emails.send({
             from: `Blosm <${fromEmail}>`,
             to: [demoData.email],
-            replyTo: replyToEmail,
+            reply_to: replyToEmail,
             subject: `Your Free Demo is Being Created - ${demoData.business_name}`,
             html: generateConfirmationEmail(demoData),
             text: generatePlainTextConfirmation(demoData),
@@ -331,7 +331,8 @@ function generateConfirmationEmail(data) {
 
             <div style="text-align: center; margin-top: 40px;">
                 <p style="color: #6b7280; margin-bottom: 15px;">Questions? We're here to help!</p>
-                <a href="mailto:scott@blosm.dev" style="color: #7c3aed; text-decoration: none; font-weight: 600;">scott@blosm.dev</a>
+                <a href="mailto:scott@blosm.dev" style="color: #7c3aed; text-decoration: none; font-weight: 600;">scott@blosm.dev</a> |
+                <a href="tel:+447438187309" style="color: #7c3aed; text-decoration: none; font-weight: 600;">+44 7438 187309</a>
             </div>
 
             <div class="footer">
@@ -386,6 +387,7 @@ What You'll Get:
 
 Questions? We're here to help!
 Email: scott@blosm.dev
+Phone: +44 7438 187309
 
 Best regards,
 Scott Sharples
