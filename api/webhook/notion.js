@@ -147,8 +147,12 @@ export default async function handler(req, res) {
       console.log('\n📧 INSTANT MODE: Sending Email 1 immediately...');
 
       try {
-        // Import the email sending function
+        // Import the email sending function and rate limiter
         const { sendCampaignEmail } = await import('../utils/resend-campaign.js');
+        const { waitForRateLimit } = await import('../utils/rate-limiter.js');
+
+        // Wait for rate limit clearance (prevents hitting Resend API limits)
+        await waitForRateLimit();
 
         // Send Email 1 immediately
         const emailResult = await sendCampaignEmail(leadData, 1);

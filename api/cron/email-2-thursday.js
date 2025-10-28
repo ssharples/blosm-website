@@ -6,6 +6,7 @@
 
 import { getLeadsByStage, updateLeadStage, shouldSendFollowUp, isUnsubscribed } from '../utils/kv.js';
 import { sendCampaignEmail } from '../utils/resend-campaign.js';
+import { waitForRateLimit } from '../utils/rate-limiter.js';
 
 export default async function handler(req, res) {
   // Verify this is a cron request from Vercel
@@ -74,6 +75,7 @@ export default async function handler(req, res) {
         }
 
         // Send Email 2
+        await waitForRateLimit();
         await sendCampaignEmail(lead, 2);
 
         // Update stage to email2_sent

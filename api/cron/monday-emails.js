@@ -6,6 +6,7 @@
 
 import { kv } from '../utils/kv.js';
 import { sendCampaignEmail } from '../utils/resend-campaign.js';
+import { waitForRateLimit } from '../utils/rate-limiter.js';
 
 export const config = {
   maxDuration: 60, // 60 seconds timeout for Pro plan
@@ -104,6 +105,7 @@ async function processEmail1() {
 
         // Send Email 1
         console.log(`Sending Email 1 to ${email}...`);
+        await waitForRateLimit();
         const emailResult = await sendCampaignEmail(leadData, 1);
 
         if (emailResult?.data?.id || emailResult?.id) {
@@ -129,8 +131,6 @@ async function processEmail1() {
           throw new Error('No email ID returned from Resend');
         }
 
-        // Small delay to respect rate limits
-        await new Promise(resolve => setTimeout(resolve, 100));
 
       } catch (error) {
         console.error(`Failed to send Email 1 to ${email}:`, error.message);
@@ -204,6 +204,7 @@ async function processEmail3() {
 
         // Send Email 3
         console.log(`Sending Email 3 to ${email}...`);
+        await waitForRateLimit();
         const emailResult = await sendCampaignEmail(leadData, 3);
 
         if (emailResult?.data?.id || emailResult?.id) {
@@ -230,8 +231,6 @@ async function processEmail3() {
           throw new Error('No email ID returned from Resend');
         }
 
-        // Small delay to respect rate limits
-        await new Promise(resolve => setTimeout(resolve, 100));
 
       } catch (error) {
         console.error(`Failed to send Email 3 to ${email}:`, error.message);
