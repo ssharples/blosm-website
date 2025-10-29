@@ -8,15 +8,39 @@ import { kv } from './kv.js';
 
 const RATE_LIMIT_KEY = 'email:rate-limit:last-send';
 const MIN_DELAY_MS = 500; // 500ms = 2 emails per second
+const MAX_WAIT_MS = 3000; // Max 3 seconds wait before queueing
+
+/**
+ * Check if we can send immediately without waiting
+ * @returns {Promise<boolean>} true if can send now, false if should queue
+ */
+export async function canSendImmediately() {
+  try {
+    const lastSendTime = await kv.get(RATE_LIMIT_KEY);
+
+    if (!lastSendTime) {
+      return true; // No previous send, can proceed
+    }
+
+    const now = Date.now();
+    const timeSinceLastSend = now - parseInt(lastSendTime);
+
+    return timeSinceLastSend >= MIN_DELAY_MS;
+  } catch (error) {
+    console.error('Rate limit check error:', error);
+    return false; // On error, queue it to be safe
+  }
+}
 
 /**
  * Wait for rate limit clearance before sending email
- * Uses Redis to coordinate across multiple concurrent webhook calls
- * @returns {Promise<void>}
+ * Returns false if should be queued instead of waiting
+ * @returns {Promise<boolean>} true if can proceed, false if should queue
  */
 export async function waitForRateLimit() {
-  const maxAttempts = 60; // Max 30 seconds wait (60 * 500ms)
+  const startTime = Date.now();
   let attempt = 0;
+  const maxAttempts = 6; // Max 3 seconds wait (6 * 500ms)
 
   while (attempt < maxAttempts) {
     try {
@@ -28,20 +52,23 @@ export async function waitForRateLimit() {
         // First email, no wait needed
         await kv.set(RATE_LIMIT_KEY, now);
         console.log('✓ Rate limit check: First email, proceeding immediately');
-        return;
+        return true;
       }
 
       const timeSinceLastSend = now - parseInt(lastSendTime);
 
       if (timeSinceLastSend >= MIN_DELAY_MS) {
         // Enough time has passed, try to claim this slot
-        // Use atomic compare-and-set to avoid race conditions
-        const claimed = await kv.set(RATE_LIMIT_KEY, now);
+        await kv.set(RATE_LIMIT_KEY, now);
+        console.log(`✓ Rate limit check: ${timeSinceLastSend}ms since last email, proceeding`);
+        return true;
+      }
 
-        if (claimed) {
-          console.log(`✓ Rate limit check: ${timeSinceLastSend}ms since last email, proceeding`);
-          return;
-        }
+      // Check if we've been waiting too long
+      const totalWaitTime = Date.now() - startTime;
+      if (totalWaitTime >= MAX_WAIT_MS) {
+        console.warn(`⚠️ Rate limit: Waited ${totalWaitTime}ms, should queue instead`);
+        return false; // Signal that this should be queued
       }
 
       // Need to wait, check again after a short delay
@@ -52,14 +79,13 @@ export async function waitForRateLimit() {
 
     } catch (error) {
       console.error('Rate limiter error:', error);
-      // On error, wait a bit and retry
-      await new Promise(resolve => setTimeout(resolve, MIN_DELAY_MS));
-      attempt++;
+      return false; // On error, queue it
     }
   }
 
-  // Max attempts reached, proceed anyway but log warning
-  console.warn('⚠️ Rate limit: Max wait time reached, proceeding with email send');
+  // Max attempts reached, should queue
+  console.warn('⚠️ Rate limit: Max wait time reached, should queue');
+  return false;
 }
 
 /**

@@ -93,40 +93,55 @@ export default async function handler(req, res) {
     console.log(`Lead: ${leadData.businessName} (${leadData.email})`);
     console.log(`Stage: Email ${emailStage}`);
 
-    // Process email send synchronously to ensure serverless function stays alive
-    // Rate limiter ensures we don't hit API limits
-    try {
-      console.log('\n🚀 Starting email send process...');
-      await processEmailSend(leadData, emailStage);
+    // Hybrid approach: Try to send immediately, queue if too busy
+    const { canSendImmediately } = await import('../utils/rate-limiter.js');
+    const canSendNow = await canSendImmediately();
+
+    if (canSendNow) {
+      // Can send immediately, do it synchronously
+      try {
+        console.log('\n🚀 Sending email immediately (rate limit clear)...');
+        await processEmailSend(leadData, emailStage);
+
+        const processingTime = Date.now() - startTime;
+        console.log(`✅ Email sent successfully in ${processingTime}ms`);
+
+        return res.status(200).json({
+          success: true,
+          message: `Email ${emailStage} sent to ${leadData.email}`,
+          email: leadData.email,
+          stage: emailStage,
+          sent: 'immediately',
+          processingTime: `${processingTime}ms`
+        });
+      } catch (error) {
+        console.error(`❌ Email send failed for ${leadData.email}:`, error);
+
+        // Queue it for retry
+        await queueEmail(leadData, emailStage);
+
+        return res.status(200).json({
+          success: false,
+          message: `Email ${emailStage} failed, queued for retry`,
+          email: leadData.email,
+          stage: emailStage,
+          sent: 'queued',
+          error: error.message
+        });
+      }
+    } else {
+      // Rate limiter busy, queue it
+      console.log('\n📬 Rate limiter busy, queueing email for later processing...');
+      await queueEmail(leadData, emailStage);
 
       const processingTime = Date.now() - startTime;
-      console.log(`✅ Email processing completed in ${processingTime}ms`);
-
       return res.status(200).json({
         success: true,
-        message: `Email ${emailStage} sent to ${leadData.email}`,
+        message: `Email ${emailStage} queued for ${leadData.email}`,
         email: leadData.email,
         stage: emailStage,
+        sent: 'queued',
         processingTime: `${processingTime}ms`
-      });
-    } catch (error) {
-      console.error(`❌ Email send failed for ${leadData.email}:`, error);
-
-      // Still return 200 to prevent Notion retries
-      // Store error in Redis for debugging
-      await kv.set(`lead:${leadData.email}:error:${Date.now()}`, {
-        stage: emailStage,
-        error: error.message,
-        stack: error.stack,
-        timestamp: new Date().toISOString()
-      }).catch(err => console.error('Failed to store error:', err));
-
-      return res.status(200).json({
-        success: false,
-        message: `Email ${emailStage} failed for ${leadData.email}`,
-        email: leadData.email,
-        stage: emailStage,
-        error: error.message
       });
     }
 
@@ -140,16 +155,38 @@ export default async function handler(req, res) {
 }
 
 /**
+ * Queue email for later processing
+ */
+async function queueEmail(leadData, emailStage) {
+  const queueKey = `email:queue:stage${emailStage}`;
+  const queueItem = {
+    ...leadData,
+    emailStage,
+    queuedAt: new Date().toISOString()
+  };
+
+  await kv.sadd(queueKey, leadData.email);
+  await kv.set(`email:queued:${leadData.email}:stage${emailStage}`, queueItem);
+
+  console.log(`✓ Email queued: ${leadData.email} for stage ${emailStage}`);
+}
+
+/**
  * Process email sending with rate limiting
  */
 async function processEmailSend(leadData, emailStage) {
   const startTime = Date.now();
 
   try {
-    console.log(`\n⏳ Waiting for rate limit clearance...`);
+    console.log(`\n⏳ Checking rate limit...`);
 
     // Wait for rate limit (ensures 500ms between emails)
-    await waitForRateLimit();
+    // Returns false if should be queued instead
+    const canProceed = await waitForRateLimit();
+
+    if (!canProceed) {
+      throw new Error('Rate limit busy, should be queued');
+    }
 
     console.log(`✓ Rate limit cleared, sending Email ${emailStage}...`);
 
