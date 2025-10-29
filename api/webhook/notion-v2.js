@@ -47,8 +47,32 @@ export default async function handler(req, res) {
     console.log(`📧 Notion Webhook: Email ${emailStage}`);
     console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
 
+    // Debug: Log the full payload structure
+    console.log('\n🔍 DEBUG: Full webhook payload:');
+    console.log(JSON.stringify(req.body, null, 2));
+
+    console.log('\n🔍 DEBUG: Properties received:');
+    console.log('Property names:', Object.keys(properties));
+
+    console.log('\n🔍 DEBUG: Email property:');
+    console.log(JSON.stringify(properties['Email'] || properties['email'], null, 2));
+
+    console.log('\n🔍 DEBUG: Email 1 Subject property:');
+    console.log(JSON.stringify(properties['Email 1 Subject'] || properties['email_1_subject'], null, 2));
+
+    console.log('\n🔍 DEBUG: Email 1 Body property:');
+    console.log(JSON.stringify(properties['Email 1 Body'] || properties['email_1_body'], null, 2));
+
     // Extract lead data
     const leadData = extractLeadData(page_id, properties, emailStage);
+
+    console.log('\n🔍 DEBUG: Extracted lead data:');
+    console.log({
+      email: leadData.email,
+      email1Subject: leadData.email1Subject,
+      email1Body: leadData.email1Body ? `${leadData.email1Body.substring(0, 50)}...` : 'MISSING',
+      demoUrl: leadData.demoUrl
+    });
 
     // Validate required fields
     const validation = validateLeadData(leadData, emailStage);
