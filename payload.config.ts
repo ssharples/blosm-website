@@ -39,10 +39,10 @@ export default buildConfig({
   // Database adapter (PostgreSQL via Neon)
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI,
+      connectionString: process.env.DATABASE_URI || 'postgresql://localhost/payload',
     },
     // Push database schema on dev
-    push: process.env.NODE_ENV !== 'production',
+    push: false, // Disable auto-push, use migrations instead
   }),
 
   // Secret for JWT tokens

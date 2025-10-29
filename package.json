@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "payload migrate && next build",
+    "build": "next build",
     "start": "next start",
     "payload": "payload",
     "generate:types": "payload generate:types",
     "generate:schema": "payload generate:graphQLSchema",
+    "migrate": "payload migrate",
     "deploy": "vercel --prod"
   },
   "keywords": [
