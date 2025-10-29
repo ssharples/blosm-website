@@ -2,25 +2,11 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "functions": {
-    "api/*.js": {
-      "memory": 1024,
-      "maxDuration": 10
-    },
     "api/**/*.js": {
       "memory": 1024,
-      "maxDuration": 60
+      "maxDuration": 10
     }
   },
-  "crons": [
-    {
-      "path": "/api/cron/monday-emails",
-      "schedule": "50 7 * * 1"
-    },
-    {
-      "path": "/api/cron/email-2-thursday",
-      "schedule": "50 7 * * 4"
-    }
-  ],
   "headers": [
     {
       "source": "/api/(.*)",
