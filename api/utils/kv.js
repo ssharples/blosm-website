@@ -60,6 +60,11 @@ export const kv = {
   async scard(key) {
     const client = await getRedisClient();
     return await client.sCard(key);
+  },
+
+  async del(key) {
+    const client = await getRedisClient();
+    return await client.del(key);
   }
 };
 
