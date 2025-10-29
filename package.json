@@ -2,9 +2,14 @@
   "name": "blosm-website",
   "version": "1.0.0",
   "description": "Blosm company website with booking API",
+  "type": "module",
   "scripts": {
-    "dev": "npx http-server . -p 3000 -o",
-    "build": "echo 'Static site - no build needed'",
+    "dev": "next dev",
+    "build": "payload migrate && next build",
+    "start": "next start",
+    "payload": "payload",
+    "generate:types": "payload generate:types",
+    "generate:schema": "payload generate:graphQLSchema",
     "deploy": "vercel --prod"
   },
   "keywords": [
@@ -16,9 +21,21 @@
   "license": "MIT",
   "dependencies": {
     "@notionhq/client": "^5.3.0",
+    "@payloadcms/db-postgres": "^3.61.1",
+    "@payloadcms/richtext-lexical": "^3.61.1",
+    "@payloadcms/storage-vercel-blob": "^3.61.1",
+    "@types/node": "^24.9.2",
+    "@types/react": "^19.2.2",
     "googleapis": "^128.0.0",
+    "graphql": "^16.11.0",
+    "next": "^15.5.6",
+    "payload": "^3.61.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "redis": "^4.6.13",
-    "resend": "^3.0.0"
+    "resend": "^3.0.0",
+    "sharp": "^0.34.4",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
