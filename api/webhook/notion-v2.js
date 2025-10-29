@@ -93,25 +93,42 @@ export default async function handler(req, res) {
     console.log(`Lead: ${leadData.businessName} (${leadData.email})`);
     console.log(`Stage: Email ${emailStage}`);
 
-    // Process asynchronously to return 200 quickly
-    // This prevents Notion from timing out or retrying
-    setImmediate(async () => {
-      try {
-        await processEmailSend(leadData, emailStage);
-      } catch (error) {
-        console.error(`Background processing error for ${leadData.email}:`, error);
-      }
-    });
+    // Process email send synchronously to ensure serverless function stays alive
+    // Rate limiter ensures we don't hit API limits
+    try {
+      console.log('\n🚀 Starting email send process...');
+      await processEmailSend(leadData, emailStage);
 
-    // Return success immediately (before email is sent)
-    const processingTime = Date.now() - startTime;
-    return res.status(200).json({
-      success: true,
-      message: `Email ${emailStage} queued for ${leadData.email}`,
-      email: leadData.email,
-      stage: emailStage,
-      processingTime: `${processingTime}ms`
-    });
+      const processingTime = Date.now() - startTime;
+      console.log(`✅ Email processing completed in ${processingTime}ms`);
+
+      return res.status(200).json({
+        success: true,
+        message: `Email ${emailStage} sent to ${leadData.email}`,
+        email: leadData.email,
+        stage: emailStage,
+        processingTime: `${processingTime}ms`
+      });
+    } catch (error) {
+      console.error(`❌ Email send failed for ${leadData.email}:`, error);
+
+      // Still return 200 to prevent Notion retries
+      // Store error in Redis for debugging
+      await kv.set(`lead:${leadData.email}:error:${Date.now()}`, {
+        stage: emailStage,
+        error: error.message,
+        stack: error.stack,
+        timestamp: new Date().toISOString()
+      }).catch(err => console.error('Failed to store error:', err));
+
+      return res.status(200).json({
+        success: false,
+        message: `Email ${emailStage} failed for ${leadData.email}`,
+        email: leadData.email,
+        stage: emailStage,
+        error: error.message
+      });
+    }
 
   } catch (error) {
     console.error('Webhook error:', error);
