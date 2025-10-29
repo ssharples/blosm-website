@@ -1,14 +1,14 @@
 /**
  * Distributed Rate Limiter for Email Sending
  * Ensures emails are sent at a controlled rate to avoid hitting Resend API limits
- * Rate limit: 2 emails per second (500ms between emails)
+ * Rate limit: 1 email per second (safe margin below Resend's 2/sec limit)
  */
 
 import { kv } from './kv.js';
 
 const RATE_LIMIT_KEY = 'email:rate-limit:last-send';
-const MIN_DELAY_MS = 500; // 500ms = 2 emails per second
-const MAX_WAIT_MS = 3000; // Max 3 seconds wait before queueing
+const MIN_DELAY_MS = 1000; // 1000ms = 1 email per second (50% of Resend's limit for safety)
+const MAX_WAIT_MS = 5000; // Max 5 seconds wait before queueing
 
 /**
  * Check if we can send immediately without waiting
@@ -40,7 +40,7 @@ export async function canSendImmediately() {
 export async function waitForRateLimit() {
   const startTime = Date.now();
   let attempt = 0;
-  const maxAttempts = 6; // Max 3 seconds wait (6 * 500ms)
+  const maxAttempts = 5; // Max 5 seconds wait (5 * 1000ms)
 
   while (attempt < maxAttempts) {
     try {
