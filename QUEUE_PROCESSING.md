@@ -65,7 +65,7 @@ Action: Send webhook
 
 - **Every 5 minutes**, Notion calls the auto-processor
 - The endpoint processes emails for **up to 8 seconds**
-- At 2 emails/second, that's ~15 emails per run
+- At 1 email/second (rate limited), that's ~8 emails per run
 - If queue not empty, it runs again in 5 minutes
 - **Fully automated** - no manual intervention
 
@@ -73,14 +73,14 @@ Action: Send webhook
 
 ```
 00:00 - 200 webhooks arrive, 5 sent immediately, 195 queued
-00:05 - Auto-processor runs: 15 sent, 180 remaining
-00:10 - Auto-processor runs: 15 sent, 165 remaining
-00:15 - Auto-processor runs: 15 sent, 150 remaining
+00:05 - Auto-processor runs: 8 sent, 187 remaining
+00:10 - Auto-processor runs: 8 sent, 179 remaining
+00:15 - Auto-processor runs: 8 sent, 171 remaining
 ...
-01:00 - Auto-processor runs: Queue empty ✅
+02:00 - Auto-processor runs: Queue empty ✅
 ```
 
-**Total time: ~1 hour for 200 emails** (fully automated)
+**Total time: ~2 hours for 200 emails** (fully automated)
 
 ---
 
@@ -107,7 +107,7 @@ export WEBHOOK_SECRET="your-webhook-secret-here"
 ### How It Works
 
 - Script calls `/api/process-queue-auto` in a loop
-- Each call processes ~15 emails (8 second timeout)
+- Each call processes ~8 emails (8 second timeout at 1 email/sec)
 - Continues until queue is empty
 - Shows real-time progress
 
@@ -119,12 +119,12 @@ export WEBHOOK_SECRET="your-webhook-secret-here"
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 🔄 Iteration 1...
-   Sent: 15 | Failed: 0 | Remaining: 185 | Time: 7842ms
+   Sent: 8 | Failed: 0 | Remaining: 192 | Time: 7842ms
 🔄 Iteration 2...
-   Sent: 15 | Failed: 0 | Remaining: 170 | Time: 7901ms
+   Sent: 8 | Failed: 0 | Remaining: 184 | Time: 7901ms
 ...
-🔄 Iteration 13...
-   Sent: 5 | Failed: 0 | Remaining: 0 | Time: 2634ms
+🔄 Iteration 25...
+   Sent: 8 | Failed: 0 | Remaining: 0 | Time: 7634ms
 
 ✅ Queue empty!
 
@@ -133,11 +133,11 @@ export WEBHOOK_SECRET="your-webhook-secret-here"
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    Total sent: 200
    Total failed: 0
-   Iterations: 13
+   Iterations: 25
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Total time: ~2 minutes for 200 emails**
+**Total time: ~3-4 minutes for 200 emails**
 
 ---
 
@@ -159,10 +159,10 @@ curl -X POST https://blosm.dev/api/process-queue-auto \
 {
   "success": true,
   "stage": 1,
-  "processed": 15,
-  "sent": 15,
+  "processed": 8,
+  "sent": 8,
   "failed": 0,
-  "remaining": 185,
+  "remaining": 192,
   "queueEmpty": false,
   "executionTime": 7842
 }
@@ -223,9 +223,11 @@ redis-cli GET "email:failed:user@example.com:stage1"
 const { emailStage = 1, maxExecutionTime = 8000 } = req.body;
 ```
 
-- `maxExecutionTime: 8000` = 8 seconds (processes ~15 emails)
-- `maxExecutionTime: 9000` = 9 seconds (processes ~17 emails)
+- `maxExecutionTime: 8000` = 8 seconds (processes ~8 emails at 1/sec)
+- `maxExecutionTime: 9000` = 9 seconds (processes ~9 emails at 1/sec)
 - **Don't exceed 9500ms** (Vercel timeout = 10 seconds)
+
+**Note:** Rate limit is 1 email/second (safe margin below Resend's 2/sec limit)
 
 **In Notion automation:**
 ```json
@@ -285,7 +287,7 @@ For **best results**, use **Option 1 (Notion Automation)**:
 
 **For immediate processing:**
 - Run `./process-email-queue.sh 1` manually
-- Drains entire queue in ~2 minutes
+- Drains entire queue in ~3-4 minutes (for 200 emails)
 
 ---
 
@@ -300,8 +302,9 @@ For **best results**, use **Option 1 (Notion Automation)**:
 | Timeout errors | 0 |
 | Emails sent immediately | ~5 |
 | Emails queued | ~195 |
-| Queue processing time (auto) | ~1 hour |
-| Queue processing time (script) | ~2 minutes |
+| Rate limit | 1 email/second |
+| Queue processing time (auto) | ~2 hours |
+| Queue processing time (script) | ~3-4 minutes |
 
 ### With 1000 Concurrent Webhooks
 
@@ -312,8 +315,9 @@ For **best results**, use **Option 1 (Notion Automation)**:
 | Timeout errors | 0 |
 | Emails sent immediately | ~5 |
 | Emails queued | ~995 |
-| Queue processing time (auto) | ~5 hours |
-| Queue processing time (script) | ~10 minutes |
+| Rate limit | 1 email/second |
+| Queue processing time (auto) | ~10 hours |
+| Queue processing time (script) | ~17 minutes |
 
 ---
 
