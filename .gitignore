@@ -21,3 +21,18 @@ npm-debug.log*
 yarn-debug.log*
 .env.development.local
 .claude-flow/
+
+# Next.js
+.next/
+out/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# Payload CMS
+payload-types.ts
+generated-schema.graphql
+media/
+
+# TypeScript
+*.tsbuildinfo
