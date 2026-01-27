@@ -1,9 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { CountUp } from '@/components/animations/count-up'
-import { ScrollReveal } from '@/components/animations/scroll-reveal'
-import { STATS } from '@/lib/constants'
+import { CountUp } from '../animations/count-up'
+import { ScrollReveal } from '../animations/scroll-reveal'
+import { STATS } from '../../lib/constants'
 import { FolderCode, Award, Sparkles } from 'lucide-react'
 
 const statIcons = [FolderCode, Award, Sparkles]

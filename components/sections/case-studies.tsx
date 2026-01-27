@@ -3,9 +3,9 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, ExternalLink } from 'lucide-react'
-import { ScrollReveal } from '@/components/animations/scroll-reveal'
-import { SpotlightCard } from '@/components/animations/spotlight-card'
-import { CASE_STUDIES } from '@/lib/constants'
+import { ScrollReveal } from '../animations/scroll-reveal'
+import { SpotlightCard } from '../animations/spotlight-card'
+import { CASE_STUDIES } from '../../lib/constants'
 
 export function CaseStudies() {
   return (

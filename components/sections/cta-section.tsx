@@ -3,10 +3,10 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, Mail, Calendar } from 'lucide-react'
-import { ScrollReveal } from '@/components/animations/scroll-reveal'
-import { Magnet } from '@/components/animations/magnet'
-import { Aurora } from '@/components/animations/aurora'
-import { COMPANY } from '@/lib/constants'
+import { ScrollReveal } from '../animations/scroll-reveal'
+import { Magnet } from '../animations/magnet'
+import { Aurora } from '../animations/aurora'
+import { COMPANY } from '../../lib/constants'
 
 export function CTASection() {
   return (

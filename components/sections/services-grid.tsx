@@ -11,9 +11,9 @@ import {
   Brain,
   LucideIcon 
 } from 'lucide-react'
-import { ScrollReveal } from '@/components/animations/scroll-reveal'
-import { SpotlightCard } from '@/components/animations/spotlight-card'
-import { SERVICES } from '@/lib/constants'
+import { ScrollReveal } from '../animations/scroll-reveal'
+import { SpotlightCard } from '../animations/spotlight-card'
+import { SERVICES } from '../../lib/constants'
 
 const iconMap: Record<string, LucideIcon> = {
   Layers,

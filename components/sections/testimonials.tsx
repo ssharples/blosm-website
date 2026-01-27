@@ -2,9 +2,9 @@
 
 import { motion } from 'framer-motion'
 import { Quote } from 'lucide-react'
-import { ScrollReveal } from '@/components/animations/scroll-reveal'
-import { SpotlightCard } from '@/components/animations/spotlight-card'
-import { TESTIMONIALS } from '@/lib/constants'
+import { ScrollReveal } from '../animations/scroll-reveal'
+import { SpotlightCard } from '../animations/spotlight-card'
+import { TESTIMONIALS } from '../../lib/constants'
 
 export function Testimonials() {
   return (

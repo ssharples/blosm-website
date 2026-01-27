@@ -3,13 +3,13 @@
 import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, ChevronDown } from 'lucide-react'
-import { BlurText } from '@/components/animations/blur-text'
-import { GradientText } from '@/components/animations/gradient-text'
-import { ScrollReveal } from '@/components/animations/scroll-reveal'
-import { Magnet } from '@/components/animations/magnet'
-import { Aurora } from '@/components/animations/aurora'
+import { BlurText } from '../animations/blur-text'
+import { GradientText } from '../animations/gradient-text'
+import { ScrollReveal } from '../animations/scroll-reveal'
+import { Magnet } from '../animations/magnet'
+import { Aurora } from '../animations/aurora'
 import { useRef } from 'react'
-import { COMPANY } from '@/lib/constants'
+import { COMPANY } from '../../lib/constants'
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)

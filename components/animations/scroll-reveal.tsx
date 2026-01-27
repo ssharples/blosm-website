@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useInView, type Variants } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 
 interface ScrollRevealProps {
   children: React.ReactNode
