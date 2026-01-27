@@ -53,7 +53,7 @@ export function BlurText({
   return (
     <motion.span
       ref={ref}
-      className={`inline-flex flex-wrap ${className}`}
+      className={`inline-flex flex-wrap justify-center ${className}`}
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
