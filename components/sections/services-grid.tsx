@@ -47,16 +47,16 @@ export function ServicesGrid() {
       />
 
       <div className="container relative z-10">
-        {/* Section Header */}
+        {/* Section Header - INTEREST (outcome-focused) */}
         <div className="text-center mb-16">
           <ScrollReveal>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-black text-white mb-4 tracking-tight">
-              What We <span className="bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">Build</span>
+              Built to <span className="bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">Win</span>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <p className="text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto font-light">
-              From concept to deployment, we handle every aspect of modern web development
+              Every line of code focused on one thing: helping your business grow
             </p>
           </ScrollReveal>
         </div>

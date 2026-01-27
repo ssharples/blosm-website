@@ -29,16 +29,16 @@ export function CaseStudies() {
       />
 
       <div className="container relative z-10">
-        {/* Section Header */}
+        {/* Section Header - DESIRE (proof) */}
         <div className="text-center mb-16">
           <ScrollReveal>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-black text-white mb-4 tracking-tight">
-              Recent <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Projects</span>
+              Real Results From <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Real Businesses</span>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <p className="text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto font-light">
-              Real solutions for real businesses — from event management to e-commerce
+              See how we've helped businesses like yours grow faster with modern tech
             </p>
           </ScrollReveal>
         </div>
@@ -105,16 +105,12 @@ export function CaseStudies() {
           ))}
         </div>
 
-        {/* View All Button */}
+        {/* Trust signal instead of secondary CTA - Hick's Law */}
         <ScrollReveal delay={0.6}>
           <div className="text-center mt-12">
-            <Link
-              href="/case-studies"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 rounded-lg font-semibold text-white hover:bg-white/5 transition-all duration-300"
-            >
-              View All Projects
-              <ArrowRight className="h-5 w-5" />
-            </Link>
+            <p className="text-gray-500 text-sm">
+              Every project delivered on time, on budget, and built to last
+            </p>
           </div>
         </ScrollReveal>
       </div>

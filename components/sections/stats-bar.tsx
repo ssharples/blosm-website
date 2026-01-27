@@ -10,7 +10,7 @@ const statIcons = [FolderCode, Award, Sparkles]
 
 export function StatsBar() {
   return (
-    <section className="relative py-16 sm:py-20 bg-black overflow-hidden">
+    <section className="relative py-20 sm:py-24 bg-black overflow-hidden">
       {/* Background with gradient border effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 via-purple-600/5 to-blue-500/5" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-pink-500/50 to-transparent" />

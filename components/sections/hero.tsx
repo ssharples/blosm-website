@@ -57,22 +57,22 @@ export function Hero() {
         style={{ opacity, scale, y }}
       >
         <div className="mx-auto max-w-5xl text-center">
-          {/* Tagline Pill */}
+          {/* Social Proof Badge - Loss Aversion */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
             <span className="inline-flex items-center gap-2 mb-6 sm:mb-8 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm text-gray-400">
-              <span className="h-2 w-2 rounded-full bg-pink-500 animate-pulse" />
-              Bespoke web development solutions
+              <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+              50+ products shipped · 160K+ users served
             </span>
           </motion.div>
 
-          {/* Main Headline */}
+          {/* Main Headline - ATTENTION (8-12 words) */}
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black mb-6 sm:mb-8 leading-[0.9] tracking-tight">
             <BlurText delay={0.4} animateBy="words" className="text-white block">
-              {COMPANY.tagline.split(' ').slice(0, -3).join(' ')}
+              Ship Products Fast Without
             </BlurText>
             <span className="block mt-3 sm:mt-4">
               <GradientText
@@ -80,47 +80,45 @@ export function Hero() {
                 speed={4}
                 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black"
               >
-                {COMPANY.tagline.split(' ').slice(-3).join(' ')}
+                Sacrificing Quality
               </GradientText>
             </span>
           </h1>
 
-          {/* Subheadline */}
+          {/* Subheadline - Transformation (Before → After) */}
           <ScrollReveal delay={0.8}>
-            <p className="text-lg sm:text-xl mx-auto max-w-2xl text-gray-400 mb-8 sm:mb-12 px-4">
-              {COMPANY.description}
+            <p className="text-lg sm:text-xl lg:text-2xl mx-auto max-w-3xl text-gray-300 mb-8 sm:mb-12 px-4 font-light leading-relaxed">
+              Turn your idea into a live, revenue-generating product in <span className="text-pink-400 font-medium">weeks, not months</span>.
+              Modern tech that actually works.
             </p>
           </ScrollReveal>
 
-          {/* CTA Buttons with Magnet Effect */}
+          {/* ONE Clear CTA - Hick's Law */}
           <ScrollReveal delay={1}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Magnet strength={0.2} range={150}>
-                <Link
-                  href="/contact"
-                  className="w-full sm:w-auto group relative overflow-hidden px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
-                >
-                  <span className="relative z-10 flex items-center justify-center">
-                    Start Your Project
-                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </span>
-                  <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{
-                      background: 'radial-gradient(circle at center, rgba(255,255,255,0.2), transparent 70%)',
-                    }}
-                  />
-                </Link>
-              </Magnet>
-              <Magnet strength={0.2} range={150}>
-                <Link
-                  href="/case-studies"
-                  className="w-full sm:w-auto px-8 py-4 border border-white/20 rounded-lg font-semibold text-white hover:bg-white/5 transition-all duration-300"
-                >
-                  View Case Studies
-                </Link>
-              </Magnet>
-            </div>
+            <Magnet strength={0.2} range={150}>
+              <Link
+                href="/contact"
+                className="inline-flex group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg font-semibold text-lg text-white hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
+              >
+                <span className="relative z-10 flex items-center justify-center">
+                  {COMPANY.primaryCTA}
+                  <ArrowRight className="ml-2 h-6 w-6 transition-transform group-hover:translate-x-1" />
+                </span>
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: 'radial-gradient(circle at center, rgba(255,255,255,0.2), transparent 70%)',
+                  }}
+                />
+              </Link>
+            </Magnet>
+          </ScrollReveal>
+
+          {/* Trust Signal - below CTA */}
+          <ScrollReveal delay={1.2}>
+            <p className="text-sm text-gray-500 mt-6">
+              No contracts. No agencies. Just fast, quality development.
+            </p>
           </ScrollReveal>
         </div>
       </motion.div>

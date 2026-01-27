@@ -28,16 +28,16 @@ export function Testimonials() {
       />
 
       <div className="container relative z-10">
-        {/* Section Header */}
+        {/* Section Header - DESIRE (social proof) */}
         <div className="text-center mb-16">
           <ScrollReveal>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-black text-white mb-4 tracking-tight">
-              Client <span className="bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent">Testimonials</span>
+              What Our <span className="bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent">Clients Say</span>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <p className="text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto font-light">
-              Don't just take our word for it — hear from businesses we've helped grow
+              Real feedback from founders and CTOs who chose to build with us
             </p>
           </ScrollReveal>
         </div>
