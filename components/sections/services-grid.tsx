@@ -12,7 +12,7 @@ import {
   LucideIcon 
 } from 'lucide-react'
 import { ScrollReveal } from '../animations/scroll-reveal'
-import { SpotlightCard } from '../animations/spotlight-card'
+import { MagicBento, MagicBentoGrid } from '../animations/magic-bento'
 import { SERVICES } from '../../lib/constants'
 
 const iconMap: Record<string, LucideIcon> = {
@@ -61,8 +61,8 @@ export function ServicesGrid() {
           </ScrollReveal>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 lg:gap-6 auto-rows-fr">
+        {/* Magic Bento Grid */}
+        <MagicBentoGrid className="grid-cols-1 md:grid-cols-6 lg:gap-6">
           {SERVICES.map((service, index) => {
             const Icon = iconMap[service.icon]
             
@@ -80,9 +80,13 @@ export function ServicesGrid() {
             const isLarge = index === 0 || index === 1 || index === 5
             
             return (
-              <ScrollReveal key={service.id} delay={index * 0.08}>
-                <SpotlightCard>
-                  <div className={`relative p-6 lg:p-8 h-full min-h-[260px] bg-gradient-to-br from-white/5 to-white/[0.02] rounded-2xl border border-white/10 backdrop-blur-sm transition-all duration-300 hover:border-brand/30 ${gridClasses}`}>
+              <ScrollReveal key={service.id} delay={index * 0.08} className={gridClasses}>
+                <MagicBento
+                  className="group h-full"
+                  tiltStrength={8}
+                  magnetStrength={0.2}
+                >
+                  <div className="relative p-6 lg:p-8 h-full min-h-[260px] bg-gradient-to-br from-white/5 to-white/[0.02] rounded-2xl border border-white/10 backdrop-blur-sm transition-all duration-300 group-hover:border-brand/30 group-hover:shadow-[0_0_30px_-5px_rgba(167,139,250,0.3)]">
                     {/* Icon */}
                     <motion.div
                       className={`inline-flex items-center justify-center ${isLarge ? 'w-16 h-16' : 'w-14 h-14'} mb-6 rounded-xl bg-gradient-to-br from-brand/20 to-purple-600/20 border border-brand/30`}
@@ -100,11 +104,11 @@ export function ServicesGrid() {
                       {service.description}
                     </p>
                   </div>
-                </SpotlightCard>
+                </MagicBento>
               </ScrollReveal>
             )
           })}
-        </div>
+        </MagicBentoGrid>
       </div>
     </section>
   )
