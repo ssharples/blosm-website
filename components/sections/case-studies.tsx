@@ -32,12 +32,12 @@ export function CaseStudies() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <ScrollReveal>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-black text-white mb-4 tracking-tight">
               Recent <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Projects</span>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto font-light">
               Real solutions for real businesses — from event management to e-commerce
             </p>
           </ScrollReveal>
@@ -53,10 +53,10 @@ export function CaseStudies() {
                     {/* Header */}
                     <div className="flex items-start justify-between mb-6">
                       <div>
-                        <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-pink-400 transition-colors">
+                        <h3 className="text-2xl font-display font-bold text-white mb-1 group-hover:text-pink-400 transition-colors">
                           {study.name}
                         </h3>
-                        <p className="text-sm text-gray-500">{study.subtitle}</p>
+                        <p className="text-sm text-gray-500 font-medium">{study.subtitle}</p>
                       </div>
                       <ExternalLink className="h-5 w-5 text-gray-400 group-hover:text-pink-400 transition-colors" />
                     </div>

@@ -70,16 +70,15 @@ export function Hero() {
           </motion.div>
 
           {/* Main Headline */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 sm:mb-8 leading-[0.95]">
-            <BlurText delay={0.4} animateBy="words" className="text-white">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black mb-6 sm:mb-8 leading-[0.9] tracking-tight">
+            <BlurText delay={0.4} animateBy="words" className="text-white block">
               {COMPANY.tagline.split(' ').slice(0, -3).join(' ')}
             </BlurText>
-            <br />
-            <span className="block mt-2">
+            <span className="block mt-3 sm:mt-4">
               <GradientText
                 colors={['#ec4899', '#a855f7', '#3b82f6']}
                 speed={4}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold"
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black"
               >
                 {COMPANY.tagline.split(' ').slice(-3).join(' ')}
               </GradientText>

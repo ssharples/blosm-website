@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
+import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
 interface BlurTextProps {
@@ -19,22 +19,15 @@ export function BlurText({
   animateBy = 'words',
 }: BlurTextProps) {
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-50px' })
-  const [elements, setElements] = useState<string[]>([])
-
-  useEffect(() => {
-    if (animateBy === 'words') {
-      setElements(children.split(' '))
-    } else {
-      setElements(children.split(''))
-    }
-  }, [children, animateBy])
+  const isInView = useInView(ref, { once: true, margin: '-100px', amount: 0.3 })
+  
+  const elements = animateBy === 'words' ? children.split(' ') : children.split('')
 
   const containerVariants = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.05,
+        staggerChildren: 0.03,
         delayChildren: delay,
       },
     },
@@ -42,16 +35,16 @@ export function BlurText({
 
   const itemVariants = {
     hidden: {
-      filter: 'blur(12px)',
+      filter: 'blur(10px)',
       opacity: 0,
-      y: direction === 'bottom' ? 20 : -20,
+      y: direction === 'bottom' ? 15 : -15,
     },
     visible: {
       filter: 'blur(0px)',
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
         ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
@@ -67,12 +60,12 @@ export function BlurText({
     >
       {elements.map((element, index) => (
         <motion.span
-          key={index}
+          key={`${element}-${index}`}
           variants={itemVariants}
-          className="inline-block"
-          style={{ marginRight: animateBy === 'words' ? '0.25em' : undefined }}
+          className="inline-block whitespace-pre"
+          style={{ marginRight: animateBy === 'words' && element !== ' ' ? '0.3em' : undefined }}
         >
-          {element === ' ' ? '\u00A0' : element}
+          {element}
         </motion.span>
       ))}
     </motion.span>

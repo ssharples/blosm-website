@@ -1,14 +1,17 @@
-import { Inter, Space_Grotesk } from 'next/font/google'
+import { Manrope, Outfit } from 'next/font/google'
 
-export const inter = Inter({
+// Body font - clean, modern, not overused
+export const manrope = Manrope({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-sans',
+  weight: ['300', '400', '500', '600', '700'],
 })
 
-export const spaceGrotesk = Space_Grotesk({
+// Display font - bold, distinctive, geometric
+export const outfit = Outfit({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-display',
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800', '900'],
 })

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { manrope, outfit } from '@/lib/fonts'
+import { SplashCursor } from '@/components/animations/splash-cursor'
 
 export const metadata: Metadata = {
   title: 'Blosm - Full-Stack Development Services',
@@ -12,12 +14,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <head>
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script src="https://cdn.tailwindcss.com"></script>
-      </head>
-      <body className="bg-black text-white antialiased">{children}</body>
+    <html lang="en" className={`dark ${manrope.variable} ${outfit.variable}`}>
+      <body className="font-sans">
+        <SplashCursor />
+        {children}
+      </body>
     </html>
   )
 }

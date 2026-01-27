@@ -45,7 +45,7 @@ export function CTASection() {
 
           {/* Headline */}
           <ScrollReveal delay={0.2}>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-white mb-6 leading-tight tracking-tight">
               Ready to build something{' '}
               <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
                 amazing?

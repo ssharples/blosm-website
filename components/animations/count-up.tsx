@@ -17,12 +17,12 @@ export function CountUp({
   end,
   suffix = '',
   prefix = '',
-  duration = 2000,
+  duration = 2500,
   className,
   once = true,
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once, margin: '-50px' })
+  const isInView = useInView(ref, { once, margin: '-100px' })
   const [count, setCount] = useState(0)
   const [hasAnimated, setHasAnimated] = useState(false)
 
@@ -37,12 +37,17 @@ export function CountUp({
       if (!startTime) startTime = timestamp
       const progress = Math.min((timestamp - startTime) / duration, 1)
 
-      // Ease out cubic
+      // Ease out cubic for smooth deceleration
       const easeOut = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.floor(easeOut * end))
+      const currentCount = Math.floor(easeOut * end)
+      
+      setCount(currentCount)
 
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate)
+      } else {
+        // Ensure we hit the exact target at the end
+        setCount(end)
       }
     }
 
@@ -56,7 +61,7 @@ export function CountUp({
   }, [isInView, end, duration, once, hasAnimated])
 
   return (
-    <span ref={ref} className={cn('tabular-nums', className)}>
+    <span ref={ref} className={cn('tabular-nums inline-block', className)} suppressHydrationWarning>
       {prefix}
       {count}
       {suffix}

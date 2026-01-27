@@ -50,40 +50,53 @@ export function ServicesGrid() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <ScrollReveal>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-black text-white mb-4 tracking-tight">
               What We <span className="bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">Build</span>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto font-light">
               From concept to deployment, we handle every aspect of modern web development
             </p>
           </ScrollReveal>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 lg:gap-6 auto-rows-fr">
           {SERVICES.map((service, index) => {
             const Icon = iconMap[service.icon]
             
+            // Bento grid sizing - asymmetric layout for visual interest
+            const gridClasses = [
+              'md:col-span-3', // Full-Stack - large
+              'md:col-span-3', // React - large
+              'md:col-span-2', // Backend - small
+              'md:col-span-2', // Database - small
+              'md:col-span-2', // Responsive - small
+              'md:col-span-4', // Performance - wide
+              'md:col-span-2', // AI - small
+            ][index]
+            
+            const isLarge = index === 0 || index === 1 || index === 5
+            
             return (
-              <ScrollReveal key={service.id} delay={index * 0.1}>
+              <ScrollReveal key={service.id} delay={index * 0.08}>
                 <SpotlightCard>
-                  <div className="relative p-8 h-full bg-gradient-to-br from-white/5 to-white/[0.02] rounded-xl border border-white/10 backdrop-blur-sm">
+                  <div className={`relative p-6 lg:p-8 h-full min-h-[260px] bg-gradient-to-br from-white/5 to-white/[0.02] rounded-2xl border border-white/10 backdrop-blur-sm transition-all duration-300 hover:border-pink-500/30 ${gridClasses}`}>
                     {/* Icon */}
                     <motion.div
-                      className="inline-flex items-center justify-center w-14 h-14 mb-6 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-600/20 border border-pink-500/30"
+                      className={`inline-flex items-center justify-center ${isLarge ? 'w-16 h-16' : 'w-14 h-14'} mb-6 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-600/20 border border-pink-500/30`}
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ type: 'spring', stiffness: 300 }}
                     >
-                      <Icon className="h-7 w-7 text-pink-400" />
+                      <Icon className={`${isLarge ? 'h-8 w-8' : 'h-7 w-7'} text-pink-400`} />
                     </motion.div>
 
                     {/* Content */}
-                    <h3 className="text-xl font-bold text-white mb-3">
+                    <h3 className={`${isLarge ? 'text-2xl' : 'text-xl'} font-display font-bold text-white mb-3`}>
                       {service.name}
                     </h3>
-                    <p className="text-gray-400 leading-relaxed">
+                    <p className="text-gray-400 leading-relaxed text-sm lg:text-base">
                       {service.description}
                     </p>
                   </div>
