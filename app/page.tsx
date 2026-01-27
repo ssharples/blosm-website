@@ -9,11 +9,19 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <ServicesGrid />
+      <section id="services">
+        <ServicesGrid />
+      </section>
       <StatsBar />
-      <CaseStudies />
-      <Testimonials />
-      <CTASection />
+      <section id="work">
+        <CaseStudies />
+      </section>
+      <section id="testimonials">
+        <Testimonials />
+      </section>
+      <section id="contact">
+        <CTASection />
+      </section>
     </>
   )
 }

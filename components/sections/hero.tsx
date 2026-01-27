@@ -76,7 +76,7 @@ export function Hero() {
             </BlurText>
             <span className="block mt-3 sm:mt-4">
               <GradientText
-                colors={['#ec4899', '#a855f7', '#3b82f6']}
+                colors={['#a78bfa', '#8b5cf6', '#c4b5fd']}
                 speed={4}
                 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black"
               >
@@ -88,7 +88,7 @@ export function Hero() {
           {/* Subheadline - Transformation (Before → After) */}
           <ScrollReveal delay={0.8}>
             <p className="text-lg sm:text-xl lg:text-2xl mx-auto max-w-3xl text-gray-300 mb-8 sm:mb-12 px-4 font-light leading-relaxed">
-              Turn your idea into a live, revenue-generating product in <span className="text-pink-400 font-medium">weeks, not months</span>.
+              Turn your idea into a live, revenue-generating product in <span className="text-brand-light font-medium">weeks, not months</span>.
               Modern tech that actually works.
             </p>
           </ScrollReveal>
@@ -98,7 +98,7 @@ export function Hero() {
             <Magnet strength={0.2} range={150}>
               <Link
                 href="/contact"
-                className="inline-flex group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg font-semibold text-lg text-white hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
+                className="inline-flex group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-brand to-brand-dark rounded-lg font-semibold text-lg text-white hover:shadow-2xl hover:shadow-brand/50 transition-all duration-300"
               >
                 <span className="relative z-10 flex items-center justify-center">
                   {COMPANY.primaryCTA}

@@ -33,7 +33,7 @@ export function ServicesGrid() {
       
       {/* Floating gradient orb */}
       <motion.div
-        className="absolute left-1/4 top-1/4 w-96 h-96 bg-pink-500/20 rounded-full blur-[120px]"
+        className="absolute left-1/4 top-1/4 w-96 h-96 bg-brand/20 rounded-full blur-[120px]"
         animate={{
           x: [0, 50, 0],
           y: [0, -50, 0],
@@ -51,7 +51,7 @@ export function ServicesGrid() {
         <div className="text-center mb-16">
           <ScrollReveal>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-black text-white mb-4 tracking-tight">
-              Built to <span className="bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">Win</span>
+              Built to <span className="bg-gradient-to-r from-brand to-purple-600 bg-clip-text text-transparent">Win</span>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
@@ -82,14 +82,14 @@ export function ServicesGrid() {
             return (
               <ScrollReveal key={service.id} delay={index * 0.08}>
                 <SpotlightCard>
-                  <div className={`relative p-6 lg:p-8 h-full min-h-[260px] bg-gradient-to-br from-white/5 to-white/[0.02] rounded-2xl border border-white/10 backdrop-blur-sm transition-all duration-300 hover:border-pink-500/30 ${gridClasses}`}>
+                  <div className={`relative p-6 lg:p-8 h-full min-h-[260px] bg-gradient-to-br from-white/5 to-white/[0.02] rounded-2xl border border-white/10 backdrop-blur-sm transition-all duration-300 hover:border-brand/30 ${gridClasses}`}>
                     {/* Icon */}
                     <motion.div
-                      className={`inline-flex items-center justify-center ${isLarge ? 'w-16 h-16' : 'w-14 h-14'} mb-6 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-600/20 border border-pink-500/30`}
+                      className={`inline-flex items-center justify-center ${isLarge ? 'w-16 h-16' : 'w-14 h-14'} mb-6 rounded-xl bg-gradient-to-br from-brand/20 to-purple-600/20 border border-brand/30`}
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ type: 'spring', stiffness: 300 }}
                     >
-                      <Icon className={`${isLarge ? 'h-8 w-8' : 'h-7 w-7'} text-pink-400`} />
+                      <Icon className={`${isLarge ? 'h-8 w-8' : 'h-7 w-7'} text-brand-light`} />
                     </motion.div>
 
                     {/* Content */}

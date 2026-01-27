@@ -22,17 +22,23 @@ const config: Config = {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        // Brand color extracted from logo: rgb(167, 139, 250) = #a78bfa
+        brand: {
+          DEFAULT: '#a78bfa',
+          light: '#c4b5fd',
+          dark: '#8b5cf6',
+        },
         primary: {
-          DEFAULT: '#ec4899',
+          DEFAULT: '#a78bfa', // Updated to match logo
           foreground: '#ffffff',
         },
         secondary: {
-          DEFAULT: '#a855f7',
+          DEFAULT: '#8b5cf6',
           foreground: '#ffffff',
         },
         accent: {
-          DEFAULT: '#06b6d4',
-          foreground: '#ffffff',
+          DEFAULT: '#c4b5fd',
+          foreground: '#000000',
         },
       },
       fontFamily: {

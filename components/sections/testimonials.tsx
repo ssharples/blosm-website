@@ -32,7 +32,7 @@ export function Testimonials() {
         <div className="text-center mb-16">
           <ScrollReveal>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-black text-white mb-4 tracking-tight">
-              What Our <span className="bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent">Clients Say</span>
+              What Our <span className="bg-gradient-to-r from-purple-500 to-brand-dark bg-clip-text text-transparent">Clients Say</span>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
@@ -50,7 +50,7 @@ export function Testimonials() {
                 <div className="relative h-full p-8 bg-gradient-to-br from-white/5 to-white/[0.02] rounded-xl border border-white/10 backdrop-blur-sm">
                   {/* Quote Icon */}
                   <motion.div
-                    className="inline-flex items-center justify-center w-12 h-12 mb-6 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-600/20 border border-purple-500/30"
+                    className="inline-flex items-center justify-center w-12 h-12 mb-6 rounded-xl bg-gradient-to-br from-purple-500/20 to-brand-dark/20 border border-purple-500/30"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: 'spring', stiffness: 300 }}
                   >

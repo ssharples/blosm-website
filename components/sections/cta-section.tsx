@@ -47,7 +47,7 @@ export function CTASection() {
           <ScrollReveal delay={0.2}>
             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-white mb-6 leading-tight tracking-tight">
               Your Competitors Are{' '}
-              <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand via-purple-500 to-blue-500 bg-clip-text text-transparent">
                 Moving Fast
               </span>
             </h2>
@@ -57,8 +57,8 @@ export function CTASection() {
           <ScrollReveal delay={0.4}>
             <p className="text-lg sm:text-xl text-gray-300 mb-12 max-w-2xl mx-auto font-light">
               While you're planning, they're shipping. Get from idea to live product in weeks with a developer
-              who's shipped <span className="text-pink-400 font-medium">50+ products</span> and served{' '}
-              <span className="text-pink-400 font-medium">160K+ users</span>.
+              who's shipped <span className="text-brand-light font-medium">50+ products</span> and served{' '}
+              <span className="text-brand-light font-medium">160K+ users</span>.
             </p>
           </ScrollReveal>
 
@@ -67,7 +67,7 @@ export function CTASection() {
             <Magnet strength={0.2} range={150}>
               <Link
                 href="/contact"
-                className="inline-flex group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg font-semibold text-lg text-white hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
+                className="inline-flex group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-brand to-purple-600 rounded-lg font-semibold text-lg text-white hover:shadow-2xl hover:shadow-brand/50 transition-all duration-300"
               >
                 <span className="relative z-10 flex items-center justify-center">
                   <Mail className="mr-2 h-6 w-6" />
@@ -91,7 +91,7 @@ export function CTASection() {
                 Email:{' '}
                 <a
                   href={`mailto:${COMPANY.contact.email}`}
-                  className="text-pink-400 hover:text-pink-300 transition-colors underline"
+                  className="text-brand-light hover:text-brand-light transition-colors underline"
                 >
                   {COMPANY.contact.email}
                 </a>

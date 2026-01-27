@@ -53,12 +53,12 @@ export function CaseStudies() {
                     {/* Header */}
                     <div className="flex items-start justify-between mb-6">
                       <div>
-                        <h3 className="text-2xl font-display font-bold text-white mb-1 group-hover:text-pink-400 transition-colors">
+                        <h3 className="text-2xl font-display font-bold text-white mb-1 group-hover:text-brand-light transition-colors">
                           {study.name}
                         </h3>
                         <p className="text-sm text-gray-500 font-medium">{study.subtitle}</p>
                       </div>
-                      <ExternalLink className="h-5 w-5 text-gray-400 group-hover:text-pink-400 transition-colors" />
+                      <ExternalLink className="h-5 w-5 text-gray-400 group-hover:text-brand-light transition-colors" />
                     </div>
 
                     {/* Description */}
@@ -87,14 +87,14 @@ export function CaseStudies() {
                     <div className="space-y-2 mb-6">
                       {study.results.slice(0, 2).map((result, i) => (
                         <div key={i} className="flex items-start gap-2 text-sm text-gray-500">
-                          <span className="text-pink-500 mt-1">→</span>
+                          <span className="text-brand mt-1">→</span>
                           <span>{result}</span>
                         </div>
                       ))}
                     </div>
 
                     {/* Read More Link */}
-                    <div className="flex items-center gap-2 text-sm font-semibold text-pink-400 group-hover:gap-3 transition-all">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-brand-light group-hover:gap-3 transition-all">
                       View Case Study
                       <ArrowRight className="h-4 w-4" />
                     </div>
