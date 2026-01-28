@@ -1,21 +1,11 @@
+import Link from 'next/link'
+import { Navigation } from './components/Navigation'
+import { Footer } from './components/Footer'
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-blosm-dark">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-blosm-darker/80 backdrop-blur-lg border-b border-blosm-border">
-        <div className="container-custom px-6 py-4 flex items-center justify-between">
-          <a href="/" className="text-2xl font-bold text-gradient">Blosm</a>
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#solutions" className="text-blosm-text-muted hover:text-blosm-text transition-colors">Solutions</a>
-            <a href="#case-study" className="text-blosm-text-muted hover:text-blosm-text transition-colors">Case Study</a>
-            <a href="#about" className="text-blosm-text-muted hover:text-blosm-text transition-colors">About</a>
-          </div>
-          <a href="#contact" className="btn-primary text-sm py-2 px-4">
-            Book a call
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Hero Section */}
       <section className="section pt-32 md:pt-40 bg-glow-top bg-grid relative overflow-hidden">
@@ -33,13 +23,13 @@ export default function HomePage() {
             stock management. Built by people who&apos;ve been in the production office at 2am.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#case-study" className="btn-primary text-lg">
+            <Link href="/case-study/chained-events" className="btn-primary text-lg">
               See how we built it
               <ArrowRight className="w-5 h-5" />
-            </a>
-            <a href="#solutions" className="btn-secondary text-lg">
+            </Link>
+            <Link href="#solutions" className="btn-secondary text-lg">
               View solutions
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -182,10 +172,10 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <a href="/case-study/chained-events" className="btn-primary">
+              <Link href="/case-study/chained-events" className="btn-primary">
                 Read the full case study
                 <ArrowRight className="w-5 h-5" />
-              </a>
+              </Link>
             </div>
 
             <div className="relative">
@@ -264,26 +254,15 @@ export default function HomePage() {
             <p className="text-xl text-blosm-text-muted mb-10">
               No pitch deck. No 6-month scoping. Just a conversation about what you need.
             </p>
-            <a href="mailto:hello@blosm.dev" className="btn-primary text-lg inline-flex">
+            <Link href="/contact" className="btn-primary text-lg inline-flex">
               Book a call
               <ArrowRight className="w-5 h-5" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 px-6 bg-blosm-darker border-t border-blosm-border">
-        <div className="container-custom flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-blosm-text-muted text-sm">
-            © {new Date().getFullYear()} Blosm. Software for the event industry.
-          </p>
-          <div className="flex gap-6 text-sm">
-            <a href="/privacy-policy" className="text-blosm-text-muted hover:text-blosm-text transition-colors">Privacy</a>
-            <a href="/terms-of-service" className="text-blosm-text-muted hover:text-blosm-text transition-colors">Terms</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   )
 }
