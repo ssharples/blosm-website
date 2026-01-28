@@ -36,3 +36,4 @@ media/
 
 # TypeScript
 *.tsbuildinfo
+.env*.local
