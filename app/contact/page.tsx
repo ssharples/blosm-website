@@ -4,6 +4,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Navigation } from '../components/Navigation'
 import { Footer } from '../components/Footer'
+import { AnimatedContent, SplitText, BlurText, Magnet, GlowingCard } from '../components/ui'
+import { motion } from 'framer-motion'
 import {
   ArrowRight,
   Mail,
@@ -31,18 +33,9 @@ export default function ContactPage() {
     e.preventDefault()
     setFormState('submitting')
 
-    // For now, just simulate a submission
-    // In production, you'd send this to an API endpoint
     try {
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      // You could integrate with email services like:
-      // - Resend
-      // - SendGrid
-      // - Or a simple mailto link as fallback
-
-      // For now, open mailto as a fallback
       const subject = encodeURIComponent(`Blosm inquiry from ${formData.name} at ${formData.company}`)
       const body = encodeURIComponent(
         `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nPhone: ${formData.phone}\nInterest: ${formData.interest}\nTeam Size: ${formData.teamSize}\n\nMessage:\n${formData.message}`
@@ -71,13 +64,29 @@ export default function ContactPage() {
         <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-[1.1] tracking-tight">
-              Let&apos;s build something{' '}
-              <span className="text-gradient">that actually works</span>
+              <SplitText
+                text="Let's build something "
+                splitBy="words"
+                animation="fadeUp"
+                delay={0.2}
+                stagger={0.06}
+              />
+              <span className="text-gradient">
+                <SplitText
+                  text="that actually works"
+                  splitBy="words"
+                  animation="fadeUp"
+                  delay={0.6}
+                  stagger={0.06}
+                />
+              </span>
             </h1>
-            <p className="text-lg text-blosm-text-muted leading-relaxed">
-              No pitch deck. No 6-month scoping. Just a conversation about what you need and how we
-              can help.
-            </p>
+            <BlurText
+              text="No pitch deck. No 6-month scoping. Just a conversation about what you need and how we can help."
+              className="text-lg text-blosm-text-muted leading-relaxed block"
+              delay={1}
+              as="p"
+            />
           </div>
         </div>
       </section>
@@ -87,150 +96,167 @@ export default function ContactPage() {
         <div className="container-custom">
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Form */}
-            <div className="lg:col-span-3">
-              <div className="bg-blosm-card border border-blosm-border rounded-2xl p-8">
-                <h2 className="text-2xl font-bold mb-6">Get in touch</h2>
+            <AnimatedContent animation="fadeUp" className="lg:col-span-3">
+              <GlowingCard className="bg-blosm-card border border-blosm-border overflow-hidden">
+                <div className="p-8">
+                  <h2 className="text-2xl font-bold mb-6">Get in touch</h2>
 
-                {formState === 'success' ? (
-                  <div className="text-center py-12">
-                    <div className="w-16 h-16 rounded-full bg-blosm-accent/10 flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle className="w-8 h-8 text-blosm-accent" />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-4">Thanks for reaching out!</h3>
-                    <p className="text-blosm-text-muted mb-6">
-                      We&apos;ll get back to you within 24 hours. In the meantime, feel free to check
-                      out our case study.
-                    </p>
-                    <Link href="/case-study/chained-events" className="btn-secondary inline-flex">
-                      Read case study
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-6">
-                      <FormField
-                        label="Your name"
-                        name="name"
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Jane Smith"
-                      />
-                      <FormField
-                        label="Email"
-                        name="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="jane@company.com"
-                      />
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-6">
-                      <FormField
-                        label="Company"
-                        name="company"
-                        type="text"
-                        value={formData.company}
-                        onChange={handleChange}
-                        placeholder="Your company"
-                      />
-                      <FormField
-                        label="Phone (optional)"
-                        name="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="+44 123 456 7890"
-                      />
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-sm font-medium text-blosm-text mb-2">
-                          What are you interested in?
-                        </label>
-                        <select
-                          name="interest"
-                          value={formData.interest}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 bg-blosm-darker border border-blosm-border rounded-lg text-blosm-text focus:outline-none focus:border-blosm-primary transition-colors"
-                        >
-                          <option value="">Select an option</option>
-                          <option value="staffing">Staffing Suite</option>
-                          <option value="accreditation">Accreditation</option>
-                          <option value="stock">Stock Management</option>
-                          <option value="custom">Custom Solution</option>
-                          <option value="all">Multiple / Not sure</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-blosm-text mb-2">
-                          Team size
-                        </label>
-                        <select
-                          name="teamSize"
-                          value={formData.teamSize}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 bg-blosm-darker border border-blosm-border rounded-lg text-blosm-text focus:outline-none focus:border-blosm-primary transition-colors"
-                        >
-                          <option value="">Select an option</option>
-                          <option value="1-50">1-50 workers</option>
-                          <option value="51-200">51-200 workers</option>
-                          <option value="201-500">201-500 workers</option>
-                          <option value="500+">500+ workers</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-blosm-text mb-2">
-                        Tell us about your needs
-                      </label>
-                      <textarea
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        rows={5}
-                        className="w-full px-4 py-3 bg-blosm-darker border border-blosm-border rounded-lg text-blosm-text focus:outline-none focus:border-blosm-primary transition-colors resize-none"
-                        placeholder="What problems are you trying to solve? What does your current setup look like?"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={formState === 'submitting'}
-                      className="btn-primary w-full justify-center text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  {formState === 'success' ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="text-center py-12"
                     >
-                      {formState === 'submitting' ? (
-                        'Sending...'
-                      ) : (
-                        <>
-                          Send message
-                          <ArrowRight className="w-5 h-5" />
-                        </>
-                      )}
-                    </button>
-
-                    {formState === 'error' && (
-                      <p className="text-center text-blosm-accent text-sm">
-                        Something went wrong. Please try again or email us directly at{' '}
-                        <a href="mailto:hello@blosm.dev" className="underline">
-                          hello@blosm.dev
-                        </a>
+                      <div className="w-16 h-16 rounded-full bg-blosm-accent/10 flex items-center justify-center mx-auto mb-6">
+                        <CheckCircle className="w-8 h-8 text-blosm-accent" />
+                      </div>
+                      <h3 className="text-2xl font-bold mb-4">Thanks for reaching out!</h3>
+                      <p className="text-blosm-text-muted mb-6">
+                        We&apos;ll get back to you within 24 hours. In the meantime, feel free to check
+                        out our case study.
                       </p>
-                    )}
-                  </form>
-                )}
-              </div>
-            </div>
+                      <Magnet strength={0.2} radius={100}>
+                        <Link href="/case-study/chained-events" className="btn-secondary inline-flex">
+                          Read case study
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </Magnet>
+                    </motion.div>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid sm:grid-cols-2 gap-6">
+                        <FormField
+                          label="Your name"
+                          name="name"
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={handleChange}
+                          placeholder="Jane Smith"
+                        />
+                        <FormField
+                          label="Email"
+                          name="email"
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="jane@company.com"
+                        />
+                      </div>
+
+                      <div className="grid sm:grid-cols-2 gap-6">
+                        <FormField
+                          label="Company"
+                          name="company"
+                          type="text"
+                          value={formData.company}
+                          onChange={handleChange}
+                          placeholder="Your company"
+                        />
+                        <FormField
+                          label="Phone (optional)"
+                          name="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          placeholder="+44 123 456 7890"
+                        />
+                      </div>
+
+                      <div className="grid sm:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium text-blosm-text mb-2">
+                            What are you interested in?
+                          </label>
+                          <select
+                            name="interest"
+                            value={formData.interest}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-blosm-darker border border-blosm-border rounded-lg text-blosm-text focus:outline-none focus:border-blosm-primary transition-colors"
+                          >
+                            <option value="">Select an option</option>
+                            <option value="staffing">Staffing Suite</option>
+                            <option value="accreditation">Accreditation</option>
+                            <option value="stock">Stock Management</option>
+                            <option value="custom">Custom Solution</option>
+                            <option value="all">Multiple / Not sure</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-blosm-text mb-2">
+                            Team size
+                          </label>
+                          <select
+                            name="teamSize"
+                            value={formData.teamSize}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-blosm-darker border border-blosm-border rounded-lg text-blosm-text focus:outline-none focus:border-blosm-primary transition-colors"
+                          >
+                            <option value="">Select an option</option>
+                            <option value="1-50">1-50 workers</option>
+                            <option value="51-200">51-200 workers</option>
+                            <option value="201-500">201-500 workers</option>
+                            <option value="500+">500+ workers</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-blosm-text mb-2">
+                          Tell us about your needs
+                        </label>
+                        <textarea
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
+                          rows={5}
+                          className="w-full px-4 py-3 bg-blosm-darker border border-blosm-border rounded-lg text-blosm-text focus:outline-none focus:border-blosm-primary transition-colors resize-none"
+                          placeholder="What problems are you trying to solve? What does your current setup look like?"
+                        />
+                      </div>
+
+                      <Magnet strength={0.15} radius={200}>
+                        <button
+                          type="submit"
+                          disabled={formState === 'submitting'}
+                          className="btn-primary w-full justify-center text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {formState === 'submitting' ? (
+                            <span className="flex items-center gap-2">
+                              <motion.span
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                                className="w-5 h-5 border-2 border-blosm-dark border-t-transparent rounded-full inline-block"
+                              />
+                              Sending...
+                            </span>
+                          ) : (
+                            <>
+                              Send message
+                              <ArrowRight className="w-5 h-5" />
+                            </>
+                          )}
+                        </button>
+                      </Magnet>
+
+                      {formState === 'error' && (
+                        <p className="text-center text-blosm-accent text-sm">
+                          Something went wrong. Please try again or email us directly at{' '}
+                          <a href="mailto:hello@blosm.dev" className="underline">
+                            hello@blosm.dev
+                          </a>
+                        </p>
+                      )}
+                    </form>
+                  )}
+                </div>
+              </GlowingCard>
+            </AnimatedContent>
 
             {/* Contact Info */}
             <div className="lg:col-span-2 space-y-8">
-              <div>
+              <AnimatedContent animation="fadeUp" delay={0.1}>
                 <h3 className="text-xl font-bold mb-6">Contact details</h3>
                 <div className="space-y-4">
                   <ContactMethod
@@ -245,9 +271,9 @@ export default function ContactPage() {
                     value="United Kingdom"
                   />
                 </div>
-              </div>
+              </AnimatedContent>
 
-              <div>
+              <AnimatedContent animation="fadeUp" delay={0.2}>
                 <h3 className="text-xl font-bold mb-6">What to expect</h3>
                 <div className="space-y-4">
                   <ExpectationItem text="We'll respond within 24 hours" />
@@ -255,28 +281,32 @@ export default function ContactPage() {
                   <ExpectationItem text="We'll ask questions to understand your needs" />
                   <ExpectationItem text="If we're not the right fit, we'll tell you" />
                 </div>
-              </div>
+              </AnimatedContent>
 
-              <div className="bg-blosm-card border border-blosm-border rounded-xl p-6">
-                <h3 className="font-bold mb-4">Our solutions</h3>
-                <div className="space-y-3">
-                  <SolutionLink
-                    icon={<Users className="w-4 h-4" />}
-                    title="Staffing Suite"
-                    href="/solutions/staffing"
-                  />
-                  <SolutionLink
-                    icon={<BadgeCheck className="w-4 h-4" />}
-                    title="Accreditation"
-                    href="/solutions/accreditation"
-                  />
-                  <SolutionLink
-                    icon={<Package className="w-4 h-4" />}
-                    title="Stock Management"
-                    href="/solutions/stock-management"
-                  />
-                </div>
-              </div>
+              <AnimatedContent animation="fadeUp" delay={0.3}>
+                <GlowingCard className="bg-blosm-card border border-blosm-border">
+                  <div className="p-6">
+                    <h3 className="font-bold mb-4">Our solutions</h3>
+                    <div className="space-y-3">
+                      <SolutionLink
+                        icon={<Users className="w-4 h-4" />}
+                        title="Staffing Suite"
+                        href="/solutions/staffing"
+                      />
+                      <SolutionLink
+                        icon={<BadgeCheck className="w-4 h-4" />}
+                        title="Accreditation"
+                        href="/solutions/accreditation"
+                      />
+                      <SolutionLink
+                        icon={<Package className="w-4 h-4" />}
+                        title="Stock Management"
+                        href="/solutions/stock-management"
+                      />
+                    </div>
+                  </div>
+                </GlowingCard>
+              </AnimatedContent>
             </div>
           </div>
         </div>
@@ -286,28 +316,40 @@ export default function ContactPage() {
       <section className="section bg-blosm-dark">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Common questions</h2>
+            <AnimatedContent animation="fadeUp">
+              <h2 className="text-3xl font-bold text-center mb-12">Common questions</h2>
+            </AnimatedContent>
             <div className="space-y-6">
-              <FAQItem
-                question="How much does it cost?"
-                answer="Every project is different, so we don't have a one-size-fits-all price list. We'll discuss your needs and give you a clear quote before any work begins. No surprises."
-              />
-              <FAQItem
-                question="How long does a typical project take?"
-                answer="It depends on scope, but we ship in phases so you start seeing value quickly. A basic staffing system might take 6-8 weeks to launch. More complex solutions take longer, but you'll see progress along the way."
-              />
-              <FAQItem
-                question="Do you offer ongoing support?"
-                answer="Yes. We don't disappear after launch. We offer ongoing support and can continue to evolve your system as your needs change."
-              />
-              <FAQItem
-                question="Can you integrate with our existing systems?"
-                answer="Usually, yes. We've integrated with various POS systems, payroll providers, and ticketing platforms. Let's talk about what you're using."
-              />
-              <FAQItem
-                question="What if I'm not sure what I need?"
-                answer="That's totally fine. We can start with a discovery session to understand your operation and help you figure out what would actually make a difference."
-              />
+              <AnimatedContent animation="fadeUp" delay={0}>
+                <FAQItem
+                  question="How much does it cost?"
+                  answer="Every project is different, so we don't have a one-size-fits-all price list. We'll discuss your needs and give you a clear quote before any work begins. No surprises."
+                />
+              </AnimatedContent>
+              <AnimatedContent animation="fadeUp" delay={0.1}>
+                <FAQItem
+                  question="How long does a typical project take?"
+                  answer="It depends on scope, but we ship in phases so you start seeing value quickly. A basic staffing system might take 6-8 weeks to launch. More complex solutions take longer, but you'll see progress along the way."
+                />
+              </AnimatedContent>
+              <AnimatedContent animation="fadeUp" delay={0.2}>
+                <FAQItem
+                  question="Do you offer ongoing support?"
+                  answer="Yes. We don't disappear after launch. We offer ongoing support and can continue to evolve your system as your needs change."
+                />
+              </AnimatedContent>
+              <AnimatedContent animation="fadeUp" delay={0.3}>
+                <FAQItem
+                  question="Can you integrate with our existing systems?"
+                  answer="Usually, yes. We've integrated with various POS systems, payroll providers, and ticketing platforms. Let's talk about what you're using."
+                />
+              </AnimatedContent>
+              <AnimatedContent animation="fadeUp" delay={0.4}>
+                <FAQItem
+                  question="What if I'm not sure what I need?"
+                  answer="That's totally fine. We can start with a discovery session to understand your operation and help you figure out what would actually make a difference."
+                />
+              </AnimatedContent>
             </div>
           </div>
         </div>
@@ -420,9 +462,11 @@ function SolutionLink({
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   return (
-    <div className="p-6 bg-blosm-card border border-blosm-border rounded-xl">
-      <h3 className="font-bold text-blosm-text mb-3">{question}</h3>
-      <p className="text-blosm-text-muted leading-relaxed">{answer}</p>
-    </div>
+    <GlowingCard className="bg-blosm-card border border-blosm-border">
+      <div className="p-6">
+        <h3 className="font-bold text-blosm-text mb-3">{question}</h3>
+        <p className="text-blosm-text-muted leading-relaxed">{answer}</p>
+      </div>
+    </GlowingCard>
   )
 }

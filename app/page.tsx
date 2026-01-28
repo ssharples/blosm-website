@@ -1,6 +1,9 @@
+'use client'
+
 import Link from 'next/link'
 import { Navigation } from './components/Navigation'
 import { Footer } from './components/Footer'
+import { SplitText, BlurText, Magnet, AnimatedContent, CountUp, GlowingCard, InfiniteScroll, Aurora } from './components/ui'
 
 export default function HomePage() {
   return (
@@ -8,28 +11,74 @@ export default function HomePage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="section pt-32 md:pt-40 bg-glow-top relative">
-        <div className="container-custom text-center relative z-10">
-          <p className="text-blosm-primary font-medium mb-6 tracking-wide uppercase text-xs">
-            Trusted by Chained Events & leading UK staffing agencies
-          </p>
+      <section className="section pt-32 md:pt-40 bg-glow-top relative overflow-hidden min-h-[90vh] flex items-center">
+        {/* Aurora background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <Aurora
+            colors={['#a78bfa', '#8b5cf6', '#c4b5fd', '#7c3aed']}
+            opacity={0.15}
+            blur={120}
+            speed={0.5}
+          />
+        </div>
+
+        <div className="container-custom text-center relative z-10 w-full">
+          <BlurText
+            text="Trusted by Chained Events & leading UK staffing agencies"
+            className="text-blosm-primary font-medium mb-6 tracking-wide uppercase text-xs block"
+            delay={0.2}
+            duration={0.8}
+            as="p"
+          />
+
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-[1.1] tracking-tight max-w-4xl mx-auto">
-            <span className="text-blosm-text">400+ workers. 3 venues.</span>
-            <br />
-            <span className="text-gradient">Zero spreadsheets.</span>
+            <span className="text-blosm-text block">
+              <SplitText
+                text="400+ workers. 3 venues."
+                splitBy="words"
+                animation="fadeUp"
+                delay={0.4}
+                stagger={0.08}
+              />
+            </span>
+            <span className="text-gradient block mt-2">
+              <SplitText
+                text="Zero spreadsheets."
+                splitBy="words"
+                animation="fadeUp"
+                delay={0.8}
+                stagger={0.08}
+              />
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-blosm-text-muted max-w-2xl mx-auto mb-10 leading-relaxed">
-            We build operational software for companies that run events — staffing, accreditation,
-            stock management. Built by people who&apos;ve been in the production office at 2am.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/case-study/chained-events" className="btn-primary">
-              See how we built it
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link href="#solutions" className="btn-secondary">
-              View solutions
-            </Link>
+
+          <BlurText
+            text="We build operational software for companies that run events — staffing, accreditation, stock management. Built by people who've been in the production office at 2am."
+            className="text-lg md:text-xl text-blosm-text-muted max-w-2xl mx-auto mb-10 leading-relaxed block"
+            delay={1.2}
+            duration={1}
+            as="p"
+          />
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-[fade-in-up_0.6s_ease-out_1.5s_forwards]">
+            <Magnet strength={0.2} radius={150}>
+              <Link href="/case-study/chained-events" className="btn-primary">
+                See how we built it
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Magnet>
+            <Magnet strength={0.2} radius={150}>
+              <Link href="#solutions" className="btn-secondary">
+                View solutions
+              </Link>
+            </Magnet>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 animate-[fade-in-up_0.6s_ease-out_2s_forwards]">
+          <div className="w-6 h-10 border-2 border-blosm-border rounded-full p-1">
+            <div className="w-1.5 h-1.5 bg-blosm-primary rounded-full mx-auto animate-bounce" />
           </div>
         </div>
       </section>
@@ -37,100 +86,154 @@ export default function HomePage() {
       {/* Problem Section */}
       <section className="section bg-blosm-darker">
         <div className="container-custom">
-          <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 tracking-tight">
-            The cost of <span className="text-blosm-accent">&quot;good enough&quot;</span> tools
-          </h2>
+          <AnimatedContent animation="fadeUp">
+            <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 tracking-tight">
+              The cost of <span className="text-blosm-accent">&quot;good enough&quot;</span> tools
+            </h2>
+          </AnimatedContent>
 
           <div className="grid md:grid-cols-3 gap-5 mb-10">
-            <PainPointCard
-              icon={<XCircle className="w-5 h-5" />}
-              cost="£200 wasted"
-              description="A no-show you didn't catch until doors opened"
-            />
-            <PainPointCard
-              icon={<XCircle className="w-5 h-5" />}
-              cost="£1,500 in shrinkage"
-              description="Stock count done on paper, lost by Saturday night"
-            />
-            <PainPointCard
-              icon={<XCircle className="w-5 h-5" />}
-              cost="Your sanity"
-              description="Staff texting you for the callsheet because the group chat buried it"
-            />
+            <AnimatedContent animation="fadeUp" delay={0}>
+              <PainPointCard
+                icon={<XCircle className="w-5 h-5" />}
+                cost="£200 wasted"
+                description="A no-show you didn't catch until doors opened"
+              />
+            </AnimatedContent>
+            <AnimatedContent animation="fadeUp" delay={0.1}>
+              <PainPointCard
+                icon={<XCircle className="w-5 h-5" />}
+                cost="£1,500 in shrinkage"
+                description="Stock count done on paper, lost by Saturday night"
+              />
+            </AnimatedContent>
+            <AnimatedContent animation="fadeUp" delay={0.2}>
+              <PainPointCard
+                icon={<XCircle className="w-5 h-5" />}
+                cost="Your sanity"
+                description="Staff texting you for the callsheet because the group chat buried it"
+              />
+            </AnimatedContent>
           </div>
 
-          <p className="text-lg text-blosm-text-muted text-center max-w-2xl mx-auto">
-            Generic software doesn&apos;t understand events. So you patch it with spreadsheets,
-            WhatsApp, and hope.
-          </p>
+          <AnimatedContent animation="fadeIn" delay={0.3}>
+            <p className="text-lg text-blosm-text-muted text-center max-w-2xl mx-auto">
+              Generic software doesn&apos;t understand events. So you patch it with spreadsheets,
+              WhatsApp, and hope.
+            </p>
+          </AnimatedContent>
         </div>
       </section>
 
       {/* Solutions Section */}
       <section id="solutions" className="section bg-blosm-dark">
         <div className="container-custom">
-          <h2 className="text-3xl md:text-4xl font-semibold text-center mb-3 tracking-tight">
-            One partner. <span className="text-gradient">All your event tech.</span>
-          </h2>
-          <p className="text-blosm-text-muted text-center mb-14 text-lg">
-            Purpose-built solutions that speak the language of events
-          </p>
+          <AnimatedContent animation="fadeUp">
+            <h2 className="text-3xl md:text-4xl font-semibold text-center mb-3 tracking-tight">
+              One partner. <span className="text-gradient">All your event tech.</span>
+            </h2>
+            <p className="text-blosm-text-muted text-center mb-14 text-lg">
+              Purpose-built solutions that speak the language of events
+            </p>
+          </AnimatedContent>
 
           <div className="grid md:grid-cols-3 gap-5">
-            <SolutionCard
-              icon={<Users className="w-6 h-6" />}
-              title="Staffing Suite"
-              description="Shift scheduling, availability, worker app, payroll exports. Your 400 staff get one app. You get one dashboard."
-              features={["Shift scheduling", "Worker mobile app", "Availability tracking", "Payroll exports"]}
-              href="/solutions/staffing"
-            />
-            <SolutionCard
-              icon={<BadgeCheck className="w-6 h-6" />}
-              title="Accreditation"
-              description="Credentials, passes, access zones. Print, scan, done. From festivals to corporate."
-              features={["Credential management", "Access zone control", "Print & scan", "Multi-event support"]}
-              href="/solutions/accreditation"
-              highlighted
-            />
-            <SolutionCard
-              icon={<Package className="w-6 h-6" />}
-              title="Stock Management"
-              description="Bar stock, equipment, merch. Counts that survive a busy Saturday."
-              features={["Inventory tracking", "Bar stock management", "Equipment logs", "Real-time counts"]}
-              href="/solutions/stock-management"
-            />
+            <AnimatedContent animation="fadeUp" delay={0}>
+              <GlowingCard className="h-full bg-blosm-card border border-blosm-border">
+                <SolutionCardContent
+                  icon={<Users className="w-6 h-6" />}
+                  title="Staffing Suite"
+                  description="Shift scheduling, availability, worker app, payroll exports. Your 400 staff get one app. You get one dashboard."
+                  features={["Shift scheduling", "Worker mobile app", "Availability tracking", "Payroll exports"]}
+                  href="/solutions/staffing"
+                />
+              </GlowingCard>
+            </AnimatedContent>
+            <AnimatedContent animation="fadeUp" delay={0.1}>
+              <GlowingCard
+                className="h-full bg-gradient-to-b from-blosm-primary/5 to-blosm-card border border-blosm-primary/20"
+                glowColor="rgba(167, 139, 250, 0.5)"
+              >
+                <SolutionCardContent
+                  icon={<BadgeCheck className="w-6 h-6" />}
+                  title="Accreditation"
+                  description="Credentials, passes, access zones. Print, scan, done. From festivals to corporate."
+                  features={["Credential management", "Access zone control", "Print & scan", "Multi-event support"]}
+                  href="/solutions/accreditation"
+                  highlighted
+                />
+              </GlowingCard>
+            </AnimatedContent>
+            <AnimatedContent animation="fadeUp" delay={0.2}>
+              <GlowingCard className="h-full bg-blosm-card border border-blosm-border">
+                <SolutionCardContent
+                  icon={<Package className="w-6 h-6" />}
+                  title="Stock Management"
+                  description="Bar stock, equipment, merch. Counts that survive a busy Saturday."
+                  features={["Inventory tracking", "Bar stock management", "Equipment logs", "Real-time counts"]}
+                  href="/solutions/stock-management"
+                />
+              </GlowingCard>
+            </AnimatedContent>
           </div>
 
-          <p className="text-center text-blosm-text-muted mt-10 text-sm">
-            <span className="text-blosm-primary font-medium">+ Event websites that actually convert</span> — ask us about marketing sites
-          </p>
+          <AnimatedContent animation="fadeIn" delay={0.4}>
+            <p className="text-center text-blosm-text-muted mt-10 text-sm">
+              <span className="text-blosm-primary font-medium">+ Event websites that actually convert</span> — ask us about marketing sites
+            </p>
+          </AnimatedContent>
         </div>
       </section>
 
       {/* Trust/Stats Section */}
       <section className="section bg-blosm-darker">
         <div className="container-custom">
-          <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 tracking-tight">
-            Built for <span className="text-gradient">real event operations</span>
-          </h2>
+          <AnimatedContent animation="fadeUp">
+            <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 tracking-tight">
+              Built for <span className="text-gradient">real event operations</span>
+            </h2>
+          </AnimatedContent>
 
           <div className="grid md:grid-cols-3 gap-5 mb-14">
-            <StatCard value="400+" label="Workers managed through one platform" />
-            <StatCard value="3" label="Venue locations, one dashboard" />
-            <StatCard value="£0" label="Spent on third-party SaaS subscriptions" />
+            <AnimatedContent animation="fadeUp" delay={0}>
+              <div className="text-center p-6 bg-blosm-card rounded-xl border border-blosm-border">
+                <p className="stat-value mb-2">
+                  <CountUp end={400} suffix="+" duration={2} />
+                </p>
+                <p className="text-blosm-text-muted text-sm">Workers managed through one platform</p>
+              </div>
+            </AnimatedContent>
+            <AnimatedContent animation="fadeUp" delay={0.1}>
+              <div className="text-center p-6 bg-blosm-card rounded-xl border border-blosm-border">
+                <p className="stat-value mb-2">
+                  <CountUp end={3} duration={1.5} />
+                </p>
+                <p className="text-blosm-text-muted text-sm">Venue locations, one dashboard</p>
+              </div>
+            </AnimatedContent>
+            <AnimatedContent animation="fadeUp" delay={0.2}>
+              <div className="text-center p-6 bg-blosm-card rounded-xl border border-blosm-border">
+                <p className="stat-value mb-2">
+                  <CountUp end={0} prefix="£" duration={1} />
+                </p>
+                <p className="text-blosm-text-muted text-sm">Spent on third-party SaaS subscriptions</p>
+              </div>
+            </AnimatedContent>
           </div>
 
-          <div className="text-center">
-            <p className="text-blosm-text-dim text-sm mb-5">Trusted by</p>
-            <div className="flex justify-center items-center gap-6 flex-wrap">
-              <div className="px-6 py-3 border border-blosm-border rounded-lg bg-blosm-card">
-                <span className="text-lg font-semibold text-blosm-text">Chained Events</span>
-              </div>
-              <div className="px-6 py-3 border border-blosm-border/40 border-dashed rounded-lg">
-                <span className="text-blosm-text-dim text-sm">Your logo here</span>
+          <AnimatedContent animation="fadeIn" delay={0.3}>
+            <div className="text-center">
+              <p className="text-blosm-text-dim text-sm mb-5">Trusted by</p>
+              <div className="flex justify-center items-center gap-6 flex-wrap">
+                <div className="px-6 py-3 border border-blosm-border rounded-lg bg-blosm-card">
+                  <span className="text-lg font-semibold text-blosm-text">Chained Events</span>
+                </div>
+                <div className="px-6 py-3 border border-blosm-border/40 border-dashed rounded-lg">
+                  <span className="text-blosm-text-dim text-sm">Your logo here</span>
+                </div>
               </div>
             </div>
-          </div>
+          </AnimatedContent>
         </div>
       </section>
 
@@ -139,52 +242,66 @@ export default function HomePage() {
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-blosm-primary font-medium mb-3 uppercase tracking-wide text-xs">Case Study</p>
-              <h2 className="text-3xl md:text-4xl font-semibold mb-5 tracking-tight">
-                Chained Events
-              </h2>
+              <AnimatedContent animation="fadeUp">
+                <p className="text-blosm-primary font-medium mb-3 uppercase tracking-wide text-xs">Case Study</p>
+                <h2 className="text-3xl md:text-4xl font-semibold mb-5 tracking-tight">
+                  Chained Events
+                </h2>
+              </AnimatedContent>
 
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-blosm-text mb-2">The challenge</h3>
-                <p className="text-blosm-text-muted leading-relaxed">
-                  A growing staffing agency juggling shifts, stock, and staff comms across
-                  multiple venues — all on spreadsheets and group chats.
-                </p>
-              </div>
-
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-blosm-text mb-3">What we built</h3>
-                <ul className="space-y-2">
-                  <FeatureListItem>Admin portal for shift management</FeatureListItem>
-                  <FeatureListItem>Mobile app for 400+ workers</FeatureListItem>
-                  <FeatureListItem>Stock/bar operations tracking</FeatureListItem>
-                  <FeatureListItem>Full marketing website</FeatureListItem>
-                </ul>
-              </div>
-
-              <div className="p-5 bg-blosm-card rounded-xl border border-blosm-border mb-6">
-                <h3 className="text-lg font-semibold text-blosm-text mb-2">The result</h3>
-                <p className="text-xl font-semibold text-gradient">
-                  One platform. No spreadsheets. Staff actually use it.
-                </p>
-              </div>
-
-              <Link href="/case-study/chained-events" className="btn-primary">
-                Read the full case study
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <div className="relative">
-              <div className="aspect-[4/3] bg-blosm-card rounded-2xl border border-blosm-border overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blosm-primary/5 to-transparent">
-                  <div className="text-center p-8">
-                    <Monitor className="w-14 h-14 text-blosm-primary/60 mx-auto mb-4" />
-                    <p className="text-blosm-text-muted text-sm">App screenshot coming soon</p>
-                  </div>
+              <AnimatedContent animation="fadeUp" delay={0.1}>
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-blosm-text mb-2">The challenge</h3>
+                  <p className="text-blosm-text-muted leading-relaxed">
+                    A growing staffing agency juggling shifts, stock, and staff comms across
+                    multiple venues — all on spreadsheets and group chats.
+                  </p>
                 </div>
-              </div>
+              </AnimatedContent>
+
+              <AnimatedContent animation="fadeUp" delay={0.2}>
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-blosm-text mb-3">What we built</h3>
+                  <ul className="space-y-2">
+                    <FeatureListItem>Admin portal for shift management</FeatureListItem>
+                    <FeatureListItem>Mobile app for 400+ workers</FeatureListItem>
+                    <FeatureListItem>Stock/bar operations tracking</FeatureListItem>
+                    <FeatureListItem>Full marketing website</FeatureListItem>
+                  </ul>
+                </div>
+              </AnimatedContent>
+
+              <AnimatedContent animation="fadeUp" delay={0.3}>
+                <div className="p-5 bg-blosm-card rounded-xl border border-blosm-border mb-6">
+                  <h3 className="text-lg font-semibold text-blosm-text mb-2">The result</h3>
+                  <p className="text-xl font-semibold text-gradient">
+                    One platform. No spreadsheets. Staff actually use it.
+                  </p>
+                </div>
+              </AnimatedContent>
+
+              <AnimatedContent animation="fadeUp" delay={0.4}>
+                <Magnet strength={0.2} radius={150}>
+                  <Link href="/case-study/chained-events" className="btn-primary inline-flex">
+                    Read the full case study
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </Magnet>
+              </AnimatedContent>
             </div>
+
+            <AnimatedContent animation="fadeLeft" delay={0.2}>
+              <div className="relative">
+                <GlowingCard className="bg-blosm-card border border-blosm-border overflow-hidden">
+                  <div className="aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-blosm-primary/5 to-transparent">
+                    <div className="text-center p-8">
+                      <Monitor className="w-14 h-14 text-blosm-primary/60 mx-auto mb-4" />
+                      <p className="text-blosm-text-muted text-sm">App screenshot coming soon</p>
+                    </div>
+                  </div>
+                </GlowingCard>
+              </div>
+            </AnimatedContent>
           </div>
         </div>
       </section>
@@ -193,27 +310,37 @@ export default function HomePage() {
       <section className="section bg-blosm-darker">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-semibold mb-10 tracking-tight">
-              But switching sounds <span className="text-blosm-accent">painful...</span>
-            </h2>
+            <AnimatedContent animation="fadeUp">
+              <h2 className="text-3xl md:text-4xl font-semibold mb-10 tracking-tight">
+                But switching sounds <span className="text-blosm-accent">painful...</span>
+              </h2>
+            </AnimatedContent>
 
             <div className="grid sm:grid-cols-2 gap-4 text-left">
-              <ObjectionCard
-                icon={<Upload className="w-5 h-5" />}
-                text="Import your existing staff list in one click"
-              />
-              <ObjectionCard
-                icon={<Database className="w-5 h-5" />}
-                text="We migrate your data — you don't touch a spreadsheet"
-              />
-              <ObjectionCard
-                icon={<GraduationCap className="w-5 h-5" />}
-                text="Your team gets trained before go-live"
-              />
-              <ObjectionCard
-                icon={<HeartHandshake className="w-5 h-5" />}
-                text="We stick around after launch (no ghost agencies here)"
-              />
+              <AnimatedContent animation="fadeUp" delay={0}>
+                <ObjectionCard
+                  icon={<Upload className="w-5 h-5" />}
+                  text="Import your existing staff list in one click"
+                />
+              </AnimatedContent>
+              <AnimatedContent animation="fadeUp" delay={0.1}>
+                <ObjectionCard
+                  icon={<Database className="w-5 h-5" />}
+                  text="We migrate your data — you don't touch a spreadsheet"
+                />
+              </AnimatedContent>
+              <AnimatedContent animation="fadeUp" delay={0.2}>
+                <ObjectionCard
+                  icon={<GraduationCap className="w-5 h-5" />}
+                  text="Your team gets trained before go-live"
+                />
+              </AnimatedContent>
+              <AnimatedContent animation="fadeUp" delay={0.3}>
+                <ObjectionCard
+                  icon={<HeartHandshake className="w-5 h-5" />}
+                  text="We stick around after launch (no ghost agencies here)"
+                />
+              </AnimatedContent>
             </div>
           </div>
         </div>
@@ -222,34 +349,50 @@ export default function HomePage() {
       {/* About Section */}
       <section id="about" className="section bg-blosm-dark">
         <div className="container-custom">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-semibold mb-6 tracking-tight">
-              Why <span className="text-gradient">Blosm</span>?
-            </h2>
-            <p className="text-lg md:text-xl text-blosm-text-muted leading-relaxed">
-              We&apos;ve built tech for real event operations — not as consultants, but as
-              people who&apos;ve run the ops ourselves. We know what breaks on show day.
-              We build software that doesn&apos;t.
-            </p>
-          </div>
+          <AnimatedContent animation="fadeUp">
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-semibold mb-6 tracking-tight">
+                Why <span className="text-gradient">Blosm</span>?
+              </h2>
+              <p className="text-lg md:text-xl text-blosm-text-muted leading-relaxed">
+                We&apos;ve built tech for real event operations — not as consultants, but as
+                people who&apos;ve run the ops ourselves. We know what breaks on show day.
+                We build software that doesn&apos;t.
+              </p>
+            </div>
+          </AnimatedContent>
         </div>
       </section>
 
       {/* Final CTA Section */}
-      <section id="contact" className="section bg-blosm-darker">
-        <div className="container-custom">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-semibold mb-5 tracking-tight">
-              Ready to build something that <span className="text-gradient">actually works</span>?
-            </h2>
-            <p className="text-lg text-blosm-text-muted mb-8">
-              No pitch deck. No 6-month scoping. Just a conversation about what you need.
-            </p>
-            <Link href="/contact" className="btn-primary inline-flex">
-              Book a call
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
+      <section id="contact" className="section bg-blosm-darker relative overflow-hidden">
+        {/* Subtle aurora in CTA */}
+        <div className="absolute inset-0 pointer-events-none opacity-50">
+          <Aurora
+            colors={['#a78bfa', '#8b5cf6']}
+            opacity={0.1}
+            blur={150}
+            speed={0.3}
+          />
+        </div>
+
+        <div className="container-custom relative z-10">
+          <AnimatedContent animation="fadeUp">
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-semibold mb-5 tracking-tight">
+                Ready to build something that <span className="text-gradient">actually works</span>?
+              </h2>
+              <p className="text-lg text-blosm-text-muted mb-8">
+                No pitch deck. No 6-month scoping. Just a conversation about what you need.
+              </p>
+              <Magnet strength={0.3} radius={200}>
+                <Link href="/contact" className="btn-primary inline-flex">
+                  Book a call
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Magnet>
+            </div>
+          </AnimatedContent>
         </div>
       </section>
 
@@ -352,7 +495,7 @@ function CheckCircle({ className }: { className?: string }) {
 /* Component Cards */
 function PainPointCard({ icon, cost, description }: { icon: React.ReactNode; cost: string; description: string }) {
   return (
-    <div className="p-5 bg-blosm-card rounded-xl border border-blosm-border">
+    <div className="p-5 bg-blosm-card rounded-xl border border-blosm-border h-full">
       <div className="text-blosm-accent mb-3">{icon}</div>
       <p className="text-blosm-text-muted text-sm mb-2">{description}</p>
       <p className="text-xl font-semibold text-blosm-accent">{cost}</p>
@@ -360,7 +503,7 @@ function PainPointCard({ icon, cost, description }: { icon: React.ReactNode; cos
   )
 }
 
-function SolutionCard({
+function SolutionCardContent({
   icon,
   title,
   description,
@@ -376,14 +519,7 @@ function SolutionCard({
   highlighted?: boolean;
 }) {
   return (
-    <Link
-      href={href}
-      className={`block p-6 rounded-xl border card-hover ${
-        highlighted
-          ? 'bg-gradient-to-b from-blosm-primary/5 to-blosm-card border-blosm-primary/20'
-          : 'bg-blosm-card border-blosm-border'
-      }`}
-    >
+    <Link href={href} className="block p-6 h-full">
       <div className={`icon-box mb-5 ${highlighted ? 'bg-blosm-primary/15 border-blosm-primary/20' : ''}`}>
         {icon}
       </div>
@@ -398,15 +534,6 @@ function SolutionCard({
         ))}
       </ul>
     </Link>
-  )
-}
-
-function StatCard({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="text-center p-6 bg-blosm-card rounded-xl border border-blosm-border">
-      <p className="stat-value mb-2">{value}</p>
-      <p className="text-blosm-text-muted text-sm">{label}</p>
-    </div>
   )
 }
 
