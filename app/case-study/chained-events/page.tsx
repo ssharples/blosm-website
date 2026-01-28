@@ -28,24 +28,24 @@ export default function ChainedEventsCaseStudy() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 md:pt-40 pb-16 md:pb-20 px-6 bg-glow-top relative overflow-hidden">
+      <section className="pt-32 md:pt-40 pb-16 md:pb-20 px-6 bg-glow-top relative">
         <div className="container-custom relative z-10">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-blosm-text-muted hover:text-blosm-text transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-blosm-text-muted hover:text-blosm-text transition-colors mb-8 text-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to home
           </Link>
 
-          <p className="text-blosm-accent font-medium mb-4 uppercase tracking-wide text-sm">
+          <p className="text-blosm-primary font-medium mb-3 uppercase tracking-wide text-xs">
             Case Study
           </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight max-w-4xl">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-[1.1] tracking-tight max-w-4xl">
             How Chained Events went from{' '}
             <span className="text-gradient">spreadsheet chaos</span> to one unified platform
           </h1>
-          <p className="text-xl text-blosm-text-muted max-w-3xl mb-10 leading-relaxed">
+          <p className="text-lg text-blosm-text-muted max-w-3xl mb-10 leading-relaxed">
             A growing staffing agency managing 400+ workers across multiple venues needed to replace
             their patchwork of spreadsheets, WhatsApp groups, and manual processes with something that
             actually worked.
@@ -53,24 +53,20 @@ export default function ChainedEventsCaseStudy() {
 
           {/* Key Stats */}
           <div className="grid sm:grid-cols-3 gap-4 max-w-3xl">
-            <div className="bg-blosm-card border border-blosm-border rounded-xl p-6 text-center">
-              <p className="stat-value text-3xl md:text-4xl mb-1">400+</p>
+            <div className="bg-blosm-card border border-blosm-border rounded-xl p-5 text-center">
+              <p className="stat-value text-3xl mb-1">400+</p>
               <p className="text-blosm-text-muted text-sm">Workers managed</p>
             </div>
-            <div className="bg-blosm-card border border-blosm-border rounded-xl p-6 text-center">
-              <p className="stat-value text-3xl md:text-4xl mb-1">3</p>
+            <div className="bg-blosm-card border border-blosm-border rounded-xl p-5 text-center">
+              <p className="stat-value text-3xl mb-1">3</p>
               <p className="text-blosm-text-muted text-sm">Venue locations</p>
             </div>
-            <div className="bg-blosm-card border border-blosm-border rounded-xl p-6 text-center">
-              <p className="stat-value text-3xl md:text-4xl mb-1">0</p>
+            <div className="bg-blosm-card border border-blosm-border rounded-xl p-5 text-center">
+              <p className="stat-value text-3xl mb-1">0</p>
               <p className="text-blosm-text-muted text-sm">Spreadsheets needed</p>
             </div>
           </div>
         </div>
-
-        {/* Decorative gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blosm-primary/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blosm-accent/10 rounded-full blur-3xl pointer-events-none" />
       </section>
 
       {/* Client Overview */}
@@ -120,7 +116,7 @@ export default function ChainedEventsCaseStudy() {
               </div>
             </div>
             <div className="relative">
-              <div className="aspect-video bg-blosm-card rounded-2xl border border-blosm-border overflow-hidden glow-primary">
+              <div className="aspect-video bg-blosm-card rounded-2xl border border-blosm-border overflow-hidden ">
                 {/* Placeholder for client photo/video */}
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blosm-primary/5 to-blosm-accent/5">
                   <div className="text-center p-8">
@@ -141,7 +137,7 @@ export default function ChainedEventsCaseStudy() {
       <section className="section bg-blosm-dark bg-grid">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <p className="text-blosm-highlight font-medium mb-4 uppercase tracking-wide text-sm">
+            <p className="text-blosm-accent font-medium mb-4 uppercase tracking-wide text-sm">
               The Challenge
             </p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
@@ -317,9 +313,8 @@ export default function ChainedEventsCaseStudy() {
       </section>
 
       {/* The Results */}
-      <section className="section bg-blosm-darker relative overflow-hidden">
-        <div className="absolute inset-0 bg-glow-top opacity-50" />
-        <div className="container-custom relative z-10">
+      <section className="section bg-blosm-darker">
+        <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <p className="text-blosm-accent font-medium mb-4 uppercase tracking-wide text-sm">
               The Results
@@ -423,7 +418,7 @@ function ChallengeCard({
       <h3 className="text-xl font-bold text-blosm-text mb-4">{title}</h3>
       <p className="text-blosm-text-muted mb-6 leading-relaxed">{description}</p>
       <div className="flex items-center gap-2">
-        <span className="text-blosm-highlight font-bold">{cost}</span>
+        <span className="text-blosm-accent font-bold">{cost}</span>
       </div>
     </div>
   )
@@ -466,7 +461,7 @@ function SolutionFeature({
         </ul>
       </div>
       <div className={reversed ? 'lg:order-1' : ''}>
-        <div className="aspect-[4/3] bg-blosm-card rounded-2xl border border-blosm-border overflow-hidden glow-primary">
+        <div className="aspect-[4/3] bg-blosm-card rounded-2xl border border-blosm-border overflow-hidden ">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center p-8">
               <Monitor className="w-16 h-16 text-blosm-primary mx-auto mb-4" />

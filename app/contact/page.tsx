@@ -67,22 +67,19 @@ export default function ContactPage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 md:pt-40 pb-16 px-6 bg-glow-top relative overflow-hidden">
+      <section className="pt-32 md:pt-40 pb-12 px-6 bg-glow-top relative">
         <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-[1.1] tracking-tight">
               Let&apos;s build something{' '}
               <span className="text-gradient">that actually works</span>
             </h1>
-            <p className="text-xl text-blosm-text-muted leading-relaxed">
+            <p className="text-lg text-blosm-text-muted leading-relaxed">
               No pitch deck. No 6-month scoping. Just a conversation about what you need and how we
               can help.
             </p>
           </div>
         </div>
-
-        {/* Decorative gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blosm-primary/10 rounded-full blur-3xl pointer-events-none" />
       </section>
 
       {/* Contact Form Section */}
@@ -219,7 +216,7 @@ export default function ContactPage() {
                     </button>
 
                     {formState === 'error' && (
-                      <p className="text-center text-blosm-highlight text-sm">
+                      <p className="text-center text-blosm-accent text-sm">
                         Something went wrong. Please try again or email us directly at{' '}
                         <a href="mailto:hello@blosm.dev" className="underline">
                           hello@blosm.dev
@@ -342,7 +339,7 @@ function FormField({
     <div>
       <label className="block text-sm font-medium text-blosm-text mb-2">
         {label}
-        {required && <span className="text-blosm-highlight ml-1">*</span>}
+        {required && <span className="text-blosm-accent ml-1">*</span>}
       </label>
       <input
         type={type}

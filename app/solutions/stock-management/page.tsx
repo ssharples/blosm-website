@@ -27,37 +27,34 @@ export default function StockManagementPage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 md:pt-40 pb-16 md:pb-24 px-6 bg-glow-top relative overflow-hidden">
+      <section className="pt-32 md:pt-40 pb-16 md:pb-20 px-6 bg-glow-top relative">
         <div className="container-custom relative z-10">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blosm-card border border-blosm-border rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blosm-card border border-blosm-border rounded-full mb-6">
               <Package className="w-4 h-4 text-blosm-primary" />
-              <span className="text-sm text-blosm-text-muted">Stock Management</span>
+              <span className="text-xs text-blosm-text-muted">Stock Management</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-[1.1] tracking-tight">
               Counts that survive{' '}
               <span className="text-gradient">a busy Saturday</span>
             </h1>
-            <p className="text-xl text-blosm-text-muted mb-10 leading-relaxed">
+            <p className="text-lg text-blosm-text-muted mb-10 leading-relaxed">
               Bar stock, equipment, merch — tracked in real-time. Know what you have, where it is,
               and what&apos;s going missing before it becomes a problem.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact" className="btn-primary text-lg">
+              <Link href="/contact" className="btn-primary">
                 Book a demo
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link href="/case-study/chained-events" className="btn-secondary text-lg">
+              <Link href="/case-study/chained-events" className="btn-secondary">
                 See it in action
               </Link>
             </div>
           </div>
         </div>
-
-        {/* Decorative gradient orbs */}
-        <div className="absolute top-1/4 right-0 w-96 h-96 bg-blosm-primary/10 rounded-full blur-3xl pointer-events-none" />
       </section>
 
       {/* Problem Statement */}
@@ -241,9 +238,8 @@ export default function StockManagementPage() {
       </section>
 
       {/* Stats */}
-      <section className="section bg-blosm-darker relative overflow-hidden">
-        <div className="absolute inset-0 bg-glow-top opacity-30" />
-        <div className="container-custom relative z-10">
+      <section className="section bg-blosm-darker">
+        <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               The numbers don&apos;t lie
@@ -309,22 +305,19 @@ export default function StockManagementPage() {
       </section>
 
       {/* CTA */}
-      <section className="section bg-blosm-darker relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blosm-primary/5 rounded-full blur-3xl" />
-        </div>
-        <div className="container-custom relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+      <section className="section bg-blosm-darker">
+        <div className="container-custom">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-semibold mb-5 tracking-tight">
               Stop losing stock to chaos
             </h2>
-            <p className="text-xl text-blosm-text-muted mb-10">
+            <p className="text-lg text-blosm-text-muted mb-8">
               Let&apos;s talk about what you&apos;re tracking and where the gaps are. We&apos;ll show
               you how to get real visibility without adding complexity.
             </p>
-            <Link href="/contact" className="btn-primary text-lg inline-flex">
+            <Link href="/contact" className="btn-primary inline-flex">
               Book a call
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -346,7 +339,7 @@ function ProblemCard({
 }) {
   return (
     <div className="p-6 bg-blosm-card border border-blosm-border rounded-xl">
-      <p className="text-blosm-highlight font-bold mb-2">{title}</p>
+      <p className="text-blosm-accent font-bold mb-2">{title}</p>
       <p className="text-blosm-text-muted mb-4">{problem}</p>
       <p className="text-sm text-blosm-text-dim">{cost}</p>
     </div>

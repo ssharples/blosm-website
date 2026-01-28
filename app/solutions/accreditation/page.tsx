@@ -27,37 +27,34 @@ export default function AccreditationSolutionPage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 md:pt-40 pb-16 md:pb-24 px-6 bg-glow-top relative overflow-hidden">
+      <section className="pt-32 md:pt-40 pb-16 md:pb-20 px-6 bg-glow-top relative">
         <div className="container-custom relative z-10">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blosm-card border border-blosm-border rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blosm-card border border-blosm-border rounded-full mb-6">
               <BadgeCheck className="w-4 h-4 text-blosm-primary" />
-              <span className="text-sm text-blosm-text-muted">Accreditation Solution</span>
+              <span className="text-xs text-blosm-text-muted">Accreditation Solution</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-[1.1] tracking-tight">
               Credentials that{' '}
               <span className="text-gradient">just work</span>
             </h1>
-            <p className="text-xl text-blosm-text-muted mb-10 leading-relaxed">
+            <p className="text-lg text-blosm-text-muted mb-10 leading-relaxed">
               Print, scan, done. From 200-person conferences to 50,000-person festivals, our
               accreditation system handles the complexity so you don&apos;t have to.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact" className="btn-primary text-lg">
+              <Link href="/contact" className="btn-primary">
                 Book a demo
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link href="/case-study/chained-events" className="btn-secondary text-lg">
+              <Link href="/case-study/chained-events" className="btn-secondary">
                 See it in action
               </Link>
             </div>
           </div>
         </div>
-
-        {/* Decorative gradient orbs */}
-        <div className="absolute top-1/4 right-0 w-96 h-96 bg-blosm-accent/10 rounded-full blur-3xl pointer-events-none" />
       </section>
 
       {/* Use Cases */}
@@ -255,22 +252,19 @@ export default function AccreditationSolutionPage() {
       </section>
 
       {/* CTA */}
-      <section className="section bg-blosm-dark relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blosm-accent/5 rounded-full blur-3xl" />
-        </div>
-        <div className="container-custom relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+      <section className="section bg-blosm-dark">
+        <div className="container-custom">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-semibold mb-5 tracking-tight">
               Ready to streamline your credentials?
             </h2>
-            <p className="text-xl text-blosm-text-muted mb-10">
+            <p className="text-lg text-blosm-text-muted mb-8">
               Tell us about your next event. We&apos;ll show you how the system works for your
               specific needs.
             </p>
-            <Link href="/contact" className="btn-primary text-lg inline-flex">
+            <Link href="/contact" className="btn-primary inline-flex">
               Book a call
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

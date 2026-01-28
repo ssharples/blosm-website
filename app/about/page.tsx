@@ -23,24 +23,20 @@ export default function AboutPage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 md:pt-40 pb-16 md:pb-24 px-6 bg-glow-top relative overflow-hidden">
+      <section className="pt-32 md:pt-40 pb-16 md:pb-20 px-6 bg-glow-top relative">
         <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-[1.1] tracking-tight">
               We&apos;ve been in the{' '}
               <span className="text-gradient">production office at 2am</span>
             </h1>
-            <p className="text-xl text-blosm-text-muted leading-relaxed">
+            <p className="text-lg text-blosm-text-muted leading-relaxed">
               We build software for the event industry — not as consultants looking in from the
               outside, but as people who&apos;ve lived the chaos and know what actually works when
               things get real.
             </p>
           </div>
         </div>
-
-        {/* Decorative gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blosm-primary/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blosm-accent/10 rounded-full blur-3xl pointer-events-none" />
       </section>
 
       {/* Story Section */}
@@ -96,7 +92,7 @@ export default function AboutPage() {
             </p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
               Because generic software{' '}
-              <span className="text-blosm-highlight">doesn&apos;t cut it</span>
+              <span className="text-blosm-accent">doesn&apos;t cut it</span>
             </h2>
           </div>
 
@@ -242,23 +238,20 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="section bg-blosm-dark relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blosm-primary/5 rounded-full blur-3xl" />
-        </div>
-        <div className="container-custom relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+      <section className="section bg-blosm-dark">
+        <div className="container-custom">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-semibold mb-5 tracking-tight">
               Let&apos;s talk about{' '}
               <span className="text-gradient">what you need</span>
             </h2>
-            <p className="text-xl text-blosm-text-muted mb-10">
+            <p className="text-lg text-blosm-text-muted mb-8">
               No pitch deck required. Just a conversation about your operation and how we might
               help.
             </p>
-            <Link href="/contact" className="btn-primary text-lg inline-flex">
+            <Link href="/contact" className="btn-primary inline-flex">
               Get in touch
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -306,7 +299,7 @@ function DontDoItem({ text }: { text: string }) {
   return (
     <div className="flex items-center gap-3">
       <div className="w-6 h-6 rounded-full bg-blosm-highlight/10 flex items-center justify-center flex-shrink-0">
-        <span className="text-blosm-highlight text-sm">✕</span>
+        <span className="text-blosm-accent text-sm">✕</span>
       </div>
       <p className="text-blosm-text-muted">{text}</p>
     </div>
