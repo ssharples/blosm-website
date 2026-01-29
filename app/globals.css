@@ -2,13 +2,42 @@
 
 /* Custom theme configuration */
 @theme {
+  /* Brand purple scale */
   --color-brand: #a78bfa;
   --color-brand-light: #c4b5fd;
   --color-brand-dark: #8b5cf6;
+  --color-brand-darker: #7c3aed;
   
+  /* Primary blue */
+  --color-primary: #4BA3D3;
+  --color-primary-light: #7FBDE3;
+  --color-primary-dark: #3A8AB8;
+  
+  /* Accent pink/magenta */
+  --color-accent: #D82E8A;
+  --color-accent-light: #E85AA5;
+  --color-accent-dark: #B82574;
+  
+  /* Semantic aliases */
+  --color-secondary: #D82E8A;
+  
+  /* Background/foreground */
   --color-background: 0 0% 0%;
   --color-foreground: 0 0% 100%;
   --color-border: 0 0% 20%;
+  
+  /* Gray scale for dark theme */
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f4f4f5;
+  --color-gray-200: #e4e4e7;
+  --color-gray-300: #d4d4d8;
+  --color-gray-400: #a1a1aa;
+  --color-gray-500: #71717a;
+  --color-gray-600: #52525b;
+  --color-gray-700: #3f3f46;
+  --color-gray-800: #27272a;
+  --color-gray-900: #18181b;
+  --color-gray-950: #09090b;
   
   --font-sans: var(--font-sans), system-ui, sans-serif;
   --font-display: var(--font-display), system-ui, sans-serif;
@@ -17,9 +46,17 @@
 /* Base styles */
 @layer base {
   :root {
-    --color-primary: #4BA3D3;
-    --color-accent: #D82E8A;
-    --color-secondary: #D82E8A;
+    /* CSS variable versions for JS access */
+    --brand: #a78bfa;
+    --brand-light: #c4b5fd;
+    --brand-dark: #8b5cf6;
+    --primary: #4BA3D3;
+    --accent: #D82E8A;
+    
+    /* RGB versions for rgba() usage in JS */
+    --brand-rgb: 167, 139, 250;
+    --primary-rgb: 75, 163, 211;
+    --accent-rgb: 216, 46, 138;
   }
 
   * {

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, ChevronDown } from 'lucide-react'
 import { BlurText } from '../animations/blur-text'
-import { GradientText } from '../animations/gradient-text'
+import { GradientText, BRAND_GRADIENT_COLORS } from '../animations/gradient-text'
 import { ScrollReveal } from '../animations/scroll-reveal'
 import { Magnet } from '../animations/magnet'
 import { Aurora } from '../animations/aurora'
@@ -76,7 +76,7 @@ export function Hero() {
             </BlurText>
             <span className="block mt-3 sm:mt-4">
               <GradientText
-                colors={['#a78bfa', '#8b5cf6', '#c4b5fd']}
+                colors={BRAND_GRADIENT_COLORS}
                 speed={4}
                 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black"
               >

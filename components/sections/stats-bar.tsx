@@ -20,7 +20,7 @@ export function StatsBar() {
       <motion.div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px]"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(236, 72, 153, 0.15), transparent 70%)',
+          background: 'radial-gradient(ellipse at center, rgba(var(--accent-rgb, 216, 46, 138), 0.15), transparent 70%)',
           filter: 'blur(60px)',
         }}
         animate={{

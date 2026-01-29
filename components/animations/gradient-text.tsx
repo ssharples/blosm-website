@@ -2,6 +2,20 @@
 
 import { cn } from '../../lib/utils'
 
+// Default gradient using CSS variables (primary → accent → primary)
+const DEFAULT_GRADIENT_COLORS = [
+  'var(--primary, #4BA3D3)',
+  'var(--accent, #D82E8A)',
+  'var(--primary, #4BA3D3)',
+]
+
+// Brand gradient (purple tones)
+export const BRAND_GRADIENT_COLORS = [
+  'var(--brand, #a78bfa)',
+  'var(--brand-dark, #8b5cf6)',
+  'var(--brand-light, #c4b5fd)',
+]
+
 interface GradientTextProps {
   children: string
   className?: string
@@ -13,7 +27,7 @@ interface GradientTextProps {
 export function GradientText({
   children,
   className = '',
-  colors = ['#4BA3D3', '#D82E8A', '#4BA3D3'],
+  colors = DEFAULT_GRADIENT_COLORS,
   speed = 3,
   animated = true,
 }: GradientTextProps) {

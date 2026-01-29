@@ -14,7 +14,7 @@ interface SpotlightCardProps {
 export function SpotlightCard({
   children,
   className = '',
-  spotlightColor = 'rgba(75, 163, 211, 0.15)',
+  spotlightColor = 'rgba(var(--primary-rgb, 75, 163, 211), 0.15)',
   spotlightSize = 300,
 }: SpotlightCardProps) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -52,7 +52,7 @@ export function SpotlightCard({
       <motion.div
         className="pointer-events-none absolute inset-0 z-0 rounded-[inherit] transition-opacity duration-300"
         style={{
-          background: `radial-gradient(${spotlightSize * 0.8}px circle at ${position.x}px ${position.y}px, rgba(75, 163, 211, 0.4), transparent 60%)`,
+          background: `radial-gradient(${spotlightSize * 0.8}px circle at ${position.x}px ${position.y}px, rgba(var(--primary-rgb, 75, 163, 211), 0.4), transparent 60%)`,
           opacity: isHovered ? 0.3 : 0,
           filter: 'blur(20px)',
         }}

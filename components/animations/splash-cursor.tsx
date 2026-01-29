@@ -63,7 +63,7 @@ export function SplashCursor() {
           width: 10px;
           height: 10px;
           border-radius: 50%;
-          background: radial-gradient(circle, rgba(236, 72, 153, 0.4), transparent);
+          background: radial-gradient(circle, rgba(var(--accent-rgb, 216, 46, 138), 0.4), transparent);
           pointer-events: none;
           transform: translate(-50%, -50%);
           animation: splash-fade 600ms ease-out forwards;
@@ -74,7 +74,7 @@ export function SplashCursor() {
           position: fixed;
           width: 20px;
           height: 20px;
-          border: 2px solid rgba(236, 72, 153, 0.6);
+          border: 2px solid rgba(var(--accent-rgb, 216, 46, 138), 0.6);
           border-radius: 50%;
           pointer-events: none;
           transform: translate(-50%, -50%);

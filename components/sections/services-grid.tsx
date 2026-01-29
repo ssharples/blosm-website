@@ -86,7 +86,7 @@ export function ServicesGrid() {
                   tiltStrength={8}
                   magnetStrength={0.2}
                 >
-                  <div className="relative p-6 lg:p-8 h-full min-h-[260px] bg-gradient-to-br from-white/5 to-white/[0.02] rounded-2xl border border-white/10 backdrop-blur-sm transition-all duration-300 group-hover:border-brand/30 group-hover:shadow-[0_0_30px_-5px_rgba(167,139,250,0.3)]">
+                  <div className="relative p-6 lg:p-8 h-full min-h-[260px] bg-gradient-to-br from-white/5 to-white/[0.02] rounded-2xl border border-white/10 backdrop-blur-sm transition-all duration-300 group-hover:border-brand/30 group-hover:shadow-[0_0_30px_-5px_rgba(var(--brand-rgb,167,139,250),0.3)]">
                     {/* Icon */}
                     <motion.div
                       className={`inline-flex items-center justify-center ${isLarge ? 'w-16 h-16' : 'w-14 h-14'} mb-6 rounded-xl bg-gradient-to-br from-brand/20 to-purple-600/20 border border-brand/30`}
