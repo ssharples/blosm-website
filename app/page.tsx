@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Navigation } from './components/Navigation'
 import { Footer } from './components/Footer'
 import { SplitText, BlurText, Magnet, AnimatedContent, CountUp, GlowingCard, InfiniteScroll, Aurora } from './components/ui'
+import { AURORA_COLORS, BLOSM_COLORS } from './components/ui/aurora'
 
 export default function HomePage() {
   return (
@@ -15,7 +16,7 @@ export default function HomePage() {
         {/* Aurora background */}
         <div className="absolute inset-0 pointer-events-none">
           <Aurora
-            colors={['#a78bfa', '#8b5cf6', '#c4b5fd', '#7c3aed']}
+            colors={AURORA_COLORS}
             opacity={0.15}
             blur={120}
             speed={0.5}
@@ -152,7 +153,7 @@ export default function HomePage() {
             <AnimatedContent animation="fadeUp" delay={0.1}>
               <GlowingCard
                 className="h-full bg-gradient-to-b from-blosm-primary/5 to-blosm-card border border-blosm-primary/20"
-                glowColor="rgba(167, 139, 250, 0.5)"
+                glowColor={`rgba(${BLOSM_COLORS.primaryRgb}, 0.5)`}
               >
                 <SolutionCardContent
                   icon={<BadgeCheck className="w-6 h-6" />}
@@ -369,7 +370,7 @@ export default function HomePage() {
         {/* Subtle aurora in CTA */}
         <div className="absolute inset-0 pointer-events-none opacity-50">
           <Aurora
-            colors={['#a78bfa', '#8b5cf6']}
+            colors={[BLOSM_COLORS.primary, BLOSM_COLORS.primaryDark]}
             opacity={0.1}
             blur={150}
             speed={0.3}

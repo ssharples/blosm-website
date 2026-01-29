@@ -22,11 +22,15 @@
   --color-blosm-primary-dark: #8b5cf6;
   --color-blosm-primary-muted: rgba(167, 139, 250, 0.1);
 
-  /* Accent - warm amber (unexpected, not teal) */
-  --color-blosm-accent: #fbbf24;
-  --color-blosm-accent-light: #fcd34d;
-  --color-blosm-accent-dark: #f59e0b;
-  --color-blosm-accent-muted: rgba(251, 191, 36, 0.1);
+  /* Accent - magenta/pink (matches brand) */
+  --color-blosm-accent: #D82E8A;
+  --color-blosm-accent-light: #E85AA5;
+  --color-blosm-accent-dark: #B82574;
+  --color-blosm-accent-muted: rgba(216, 46, 138, 0.1);
+  
+  /* RGB versions for rgba() usage */
+  --blosm-primary-rgb: 167, 139, 250;
+  --blosm-accent-rgb: 216, 46, 138;
 
   /* Text colors - refined hierarchy */
   --color-blosm-text: #f4f4f5;
@@ -169,14 +173,14 @@ h1, h2, h3, h4, h5, h6 {
 /* Refined grid background - very subtle */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(167, 139, 250, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(167, 139, 250, 0.015) 1px, transparent 1px);
+    linear-gradient(rgba(var(--blosm-primary-rgb), 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--blosm-primary-rgb), 0.015) 1px, transparent 1px);
   background-size: 80px 80px;
 }
 
 /* Top glow - refined and subtle */
 .bg-glow-top {
-  background-image: radial-gradient(ellipse 60% 40% at 50% -10%, rgba(167, 139, 250, 0.08), transparent);
+  background-image: radial-gradient(ellipse 60% 40% at 50% -10%, rgba(var(--blosm-primary-rgb), 0.08), transparent);
 }
 
 /* Animation utilities */
@@ -234,7 +238,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   background: var(--color-blosm-primary-muted);
   color: var(--color-blosm-primary);
-  border: 1px solid rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(var(--blosm-primary-rgb), 0.1);
 }
 
 /* Link underline animation */
@@ -265,7 +269,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Selection color */
 ::selection {
-  background: rgba(167, 139, 250, 0.3);
+  background: rgba(var(--blosm-primary-rgb), 0.3);
   color: var(--color-blosm-text);
 }
 

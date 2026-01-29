@@ -11,10 +11,13 @@ interface GlowingCardProps {
   href?: string
 }
 
+// Default glow uses CSS variable with fallback
+const DEFAULT_GLOW = 'rgba(var(--blosm-primary-rgb, 167, 139, 250), 0.4)'
+
 export function GlowingCard({
   children,
   className = '',
-  glowColor = 'rgba(167, 139, 250, 0.4)',
+  glowColor = DEFAULT_GLOW,
   borderRadius = '0.75rem',
   as: Tag = 'div',
   href,

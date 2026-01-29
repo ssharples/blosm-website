@@ -2,6 +2,27 @@
 
 import { useEffect, useRef } from 'react'
 
+// Brand color constants (match CSS variables in globals.css)
+export const BLOSM_COLORS = {
+  primary: '#a78bfa',
+  primaryLight: '#c4b5fd',
+  primaryDark: '#8b5cf6',
+  primaryDarker: '#7c3aed',
+  accent: '#D82E8A',
+  accentLight: '#E85AA5',
+  // RGB versions for rgba()
+  primaryRgb: '167, 139, 250',
+  accentRgb: '216, 46, 138',
+} as const
+
+// Default aurora gradient using brand colors
+export const AURORA_COLORS = [
+  BLOSM_COLORS.primary,
+  BLOSM_COLORS.primaryDark,
+  BLOSM_COLORS.primaryLight,
+  BLOSM_COLORS.primaryDarker,
+]
+
 interface AuroraProps {
   className?: string
   colors?: string[]
@@ -12,7 +33,7 @@ interface AuroraProps {
 
 export function Aurora({
   className = '',
-  colors = ['#a78bfa', '#8b5cf6', '#c4b5fd', '#7c3aed'],
+  colors = AURORA_COLORS,
   speed = 1,
   blur = 100,
   opacity = 0.3,
